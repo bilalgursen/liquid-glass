@@ -1,0 +1,461 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Liquid Glass Slider",
+  "component": "./LiquidGlassSlider.tsx#LiquidGlassSlider",
+  "canvas": {
+    "layout": "flow"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "value",
+          "control": "slider",
+          "label": "Value",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "prop": "sliderCount",
+          "control": "slider",
+          "label": "Sliders",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "prop": "overallScale",
+          "control": "slider",
+          "label": "Scale",
+          "min": 0.3,
+          "max": 1.2,
+          "step": 0.01,
+          "default": 0.67
+        },
+        {
+          "prop": "debugView",
+          "control": "select",
+          "label": "Debug view",
+          "options": [
+            "off",
+            "sdf",
+            "height",
+            "normal",
+            "uv",
+            "edge"
+          ],
+          "default": "off"
+        }
+      ]
+    },
+    {
+      "title": "Track",
+      "tab": "Layout",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "trackLength",
+          "control": "slider",
+          "label": "Track length",
+          "min": 300,
+          "max": 1000,
+          "step": 10,
+          "default": 800
+        },
+        {
+          "prop": "trackHeight",
+          "control": "slider",
+          "label": "Track height",
+          "min": 8,
+          "max": 80,
+          "step": 1,
+          "default": 32
+        },
+        {
+          "prop": "sliderGap",
+          "control": "slider",
+          "label": "Row gap",
+          "min": 80,
+          "max": 400,
+          "step": 5,
+          "default": 220
+        }
+      ]
+    },
+    {
+      "title": "Thumb size",
+      "tab": "Layout",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "restWidth",
+          "control": "slider",
+          "label": "Rest width",
+          "min": 60,
+          "max": 240,
+          "step": 1,
+          "default": 132
+        },
+        {
+          "prop": "restHeight",
+          "control": "slider",
+          "label": "Rest height",
+          "min": 30,
+          "max": 140,
+          "step": 1,
+          "default": 68
+        },
+        {
+          "prop": "glassWidth",
+          "control": "slider",
+          "label": "Pressed width",
+          "min": 100,
+          "max": 400,
+          "step": 1,
+          "default": 245
+        },
+        {
+          "prop": "glassHeight",
+          "control": "slider",
+          "label": "Pressed height",
+          "min": 50,
+          "max": 240,
+          "step": 1,
+          "default": 120
+        },
+        {
+          "prop": "cornerRadius",
+          "control": "slider",
+          "label": "Corner radius",
+          "min": 10,
+          "max": 200,
+          "step": 1,
+          "default": 126
+        }
+      ]
+    },
+    {
+      "title": "Refraction",
+      "tab": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "refractionStrength",
+          "control": "slider",
+          "label": "Refraction",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 37
+        },
+        {
+          "prop": "restRefraction",
+          "control": "slider",
+          "label": "Rest refraction",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "default": 6
+        },
+        {
+          "prop": "magnification",
+          "control": "slider",
+          "label": "Magnification",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        },
+        {
+          "prop": "edgeDistortion",
+          "control": "slider",
+          "label": "Edge distortion",
+          "min": 0.2,
+          "max": 4,
+          "step": 0.1,
+          "default": 1.6
+        },
+        {
+          "prop": "dispersion",
+          "control": "slider",
+          "label": "Dispersion",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0.12
+        }
+      ]
+    },
+    {
+      "title": "Surface",
+      "tab": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "bevelWidth",
+          "control": "slider",
+          "label": "Bevel width",
+          "min": 4,
+          "max": 120,
+          "step": 1,
+          "default": 62
+        },
+        {
+          "prop": "centerFlatness",
+          "control": "slider",
+          "label": "Center flatness",
+          "min": 0.3,
+          "max": 4,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "prop": "normalStrength",
+          "control": "slider",
+          "label": "Normal strength",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 42
+        },
+        {
+          "prop": "blurCenter",
+          "control": "slider",
+          "label": "Blur center",
+          "min": 0,
+          "max": 6,
+          "step": 0.05,
+          "default": 0.35
+        },
+        {
+          "prop": "blurEdge",
+          "control": "slider",
+          "label": "Blur edge",
+          "min": 0,
+          "max": 6,
+          "step": 0.05,
+          "default": 2.2
+        }
+      ]
+    },
+    {
+      "title": "Frost (resting)",
+      "tab": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "frostOpacity",
+          "control": "slider",
+          "label": "Frost opacity",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        },
+        {
+          "prop": "frostBlur",
+          "control": "slider",
+          "label": "Frost blur",
+          "min": 0,
+          "max": 8,
+          "step": 0.1,
+          "default": 4
+        }
+      ]
+    },
+    {
+      "title": "Highlights",
+      "tab": "Light",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "rimIntensity",
+          "control": "slider",
+          "label": "Rim intensity",
+          "min": 0,
+          "max": 2,
+          "step": 0.01,
+          "default": 0.55
+        },
+        {
+          "prop": "rimWidth",
+          "control": "slider",
+          "label": "Rim width",
+          "min": 0.2,
+          "max": 4,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "prop": "fresnelPower",
+          "control": "slider",
+          "label": "Fresnel power",
+          "min": 1,
+          "max": 12,
+          "step": 0.5,
+          "default": 6
+        },
+        {
+          "prop": "topReflection",
+          "control": "slider",
+          "label": "Top reflection",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0.3
+        },
+        {
+          "prop": "innerShading",
+          "control": "slider",
+          "label": "Inner shading",
+          "min": 0,
+          "max": 0.5,
+          "step": 0.01,
+          "default": 0.1
+        },
+        {
+          "prop": "causticStrength",
+          "control": "slider",
+          "label": "Caustic",
+          "min": 0,
+          "max": 0.5,
+          "step": 0.01,
+          "default": 0.08
+        }
+      ]
+    },
+    {
+      "title": "Shadow",
+      "tab": "Light",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "shadowOpacity",
+          "control": "slider",
+          "label": "Opacity",
+          "min": 0,
+          "max": 0.4,
+          "step": 0.01,
+          "default": 0.12
+        },
+        {
+          "prop": "shadowSoftness",
+          "control": "slider",
+          "label": "Softness",
+          "min": 4,
+          "max": 80,
+          "step": 1,
+          "default": 34
+        },
+        {
+          "prop": "shadowOffset",
+          "control": "slider",
+          "label": "Offset",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "default": 22
+        }
+      ]
+    },
+    {
+      "title": "Motion",
+      "tab": "Motion",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "motionSmoothing",
+          "control": "slider",
+          "label": "Follow stiffness",
+          "min": 4,
+          "max": 80,
+          "step": 1,
+          "default": 30
+        },
+        {
+          "prop": "motionStretch",
+          "control": "slider",
+          "label": "Stretch",
+          "min": 0,
+          "max": 10,
+          "step": 0.1,
+          "default": 3
+        },
+        {
+          "prop": "pressSpeed",
+          "control": "slider",
+          "label": "Press speed",
+          "min": 4,
+          "max": 40,
+          "step": 0.5,
+          "default": 16
+        },
+        {
+          "prop": "pressBounce",
+          "control": "slider",
+          "label": "Press bounce",
+          "min": 0,
+          "max": 0.9,
+          "step": 0.01,
+          "default": 0.4
+        }
+      ]
+    },
+    {
+      "title": "Accent",
+      "tab": "Color",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "activeColor",
+          "control": "color",
+          "label": "Fill",
+          "default": "#3291FF"
+        },
+        {
+          "prop": "activeColorDeep",
+          "control": "color",
+          "label": "Fill (deep)",
+          "default": "#02458f"
+        }
+      ]
+    },
+    {
+      "title": "Tint",
+      "tab": "Color",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "glassTint",
+          "control": "color",
+          "label": "Glass tint",
+          "default": "#ffffff"
+        },
+        {
+          "prop": "tintStrength",
+          "control": "slider",
+          "label": "Tint strength",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "values": {}
+}

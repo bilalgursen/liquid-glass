@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+.tanstack
+.nitro
+.output
+.vinxi
+.wrangler
+*.log
+.DS_Store
+.claude

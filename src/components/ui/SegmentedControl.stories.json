@@ -1,0 +1,111 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Segmented Control",
+  "component": "./SegmentedControl.tsx#SegmentedControl",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "size",
+          "control": "segmented",
+          "label": "Size",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "prop": "showLabels",
+          "control": "switch",
+          "label": "Labels",
+          "default": true
+        },
+        {
+          "prop": "showIcons",
+          "control": "switch",
+          "label": "Icons",
+          "default": true,
+          "visibleWhen": {
+            "prop": "showLabels",
+            "equals": true
+          }
+        }
+      ]
+    },
+    {
+      "title": "Lens",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "stretch",
+          "control": "switch",
+          "label": "Stretch to width",
+          "default": false
+        },
+        {
+          "prop": "lensScale",
+          "control": "slider",
+          "label": "Lens swell",
+          "min": 1,
+          "max": 2,
+          "step": 0.01,
+          "default": 1.35
+        },
+        {
+          "prop": "magnify",
+          "control": "slider",
+          "label": "Magnify",
+          "min": 0,
+          "max": 0.5,
+          "step": 0.01,
+          "default": 0.12
+        },
+        {
+          "prop": "indicatorBounce",
+          "control": "slider",
+          "label": "Indicator bounce",
+          "min": 0,
+          "max": 0.9,
+          "step": 0.01,
+          "default": 0.25
+        }
+      ]
+    }
+  ],
+  "values": {
+    "value": "day",
+    "options": [
+      {
+        "value": "day",
+        "label": "Day",
+        "icon": "sun"
+      },
+      {
+        "value": "week",
+        "label": "Week",
+        "icon": "sparkle"
+      },
+      {
+        "value": "month",
+        "label": "Month",
+        "icon": "moon"
+      }
+    ]
+  }
+}

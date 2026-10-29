@@ -1,0 +1,93 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Progress",
+  "component": "./Progress.tsx#Progress",
+  "canvas": {
+    "layout": "padded"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "value",
+          "control": "slider",
+          "label": "Value",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 64,
+          "visibleWhen": {
+            "prop": "indeterminate",
+            "equals": false
+          }
+        },
+        {
+          "prop": "size",
+          "control": "segmented",
+          "label": "Size",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "prop": "tube",
+          "control": "switch",
+          "label": "Glass tube",
+          "default": true
+        }
+      ]
+    },
+    {
+      "title": "Parts",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "indeterminate",
+          "control": "switch",
+          "label": "Indeterminate",
+          "default": false
+        },
+        {
+          "prop": "showValue",
+          "control": "switch",
+          "label": "Show value",
+          "default": true,
+          "visibleWhen": {
+            "prop": "indeterminate",
+            "equals": false
+          }
+        },
+        {
+          "prop": "fillBounce",
+          "control": "slider",
+          "label": "Fill bounce",
+          "min": 0,
+          "max": 0.9,
+          "step": 0.01,
+          "default": 0.15,
+          "visibleWhen": {
+            "prop": "indeterminate",
+            "equals": false
+          }
+        }
+      ]
+    }
+  ],
+  "values": {
+    "label": "Uploading"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Liquid Glass",
+  "component": "./LiquidGlass.tsx#LiquidGlassPreview",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "offset",
+          "control": "slider",
+          "label": "Lens position",
+          "min": -1,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        },
+        {
+          "prop": "pressed",
+          "control": "switch",
+          "label": "Pressed",
+          "default": false
+        },
+        {
+          "prop": "frost",
+          "control": "slider",
+          "label": "Resting frost",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        }
+      ]
+    },
+    {
+      "title": "Shape",
+      "tab": "Shape",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "lensWidth",
+          "control": "slider",
+          "label": "Width",
+          "min": 40,
+          "max": 420,
+          "step": 1,
+          "default": 245
+        },
+        {
+          "prop": "lensHeight",
+          "control": "slider",
+          "label": "Height",
+          "min": 24,
+          "max": 200,
+          "step": 1,
+          "default": 120
+        },
+        {
+          "prop": "swell",
+          "control": "slider",
+          "label": "Press swell",
+          "min": 1,
+          "max": 1.6,
+          "step": 0.01,
+          "default": 1
+        },
+        {
+          "prop": "bevelWidth",
+          "control": "slider",
+          "label": "Bevel",
+          "min": 4,
+          "max": 120,
+          "step": 1,
+          "default": 62
+        }
+      ]
+    },
+    {
+      "title": "Refraction",
+      "tab": "Optics",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "refraction",
+          "control": "slider",
+          "label": "Refraction",
+          "min": 0,
+          "max": 90,
+          "step": 1,
+          "default": 37
+        },
+        {
+          "prop": "magnification",
+          "control": "slider",
+          "label": "Magnification",
+          "min": 0,
+          "max": 0.6,
+          "step": 0.01,
+          "default": 0
+        },
+        {
+          "prop": "dispersion",
+          "control": "slider",
+          "label": "Dispersion",
+          "min": 0,
+          "max": 0.6,
+          "step": 0.01,
+          "default": 0.12
+        }
+      ]
+    },
+    {
+      "title": "Light",
+      "tab": "Light",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "rimIntensity",
+          "control": "slider",
+          "label": "Rim light",
+          "min": 0,
+          "max": 1.5,
+          "step": 0.01,
+          "default": 0.55
+        },
+        {
+          "prop": "topReflection",
+          "control": "slider",
+          "label": "Top reflection",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0.3
+        },
+        {
+          "prop": "innerShading",
+          "control": "slider",
+          "label": "Inner shading",
+          "min": 0,
+          "max": 0.4,
+          "step": 0.01,
+          "default": 0.1
+        },
+        {
+          "prop": "causticStrength",
+          "control": "slider",
+          "label": "Caustic",
+          "min": 0,
+          "max": 0.4,
+          "step": 0.01,
+          "default": 0.08
+        },
+        {
+          "prop": "shadowOpacity",
+          "control": "slider",
+          "label": "Shadow",
+          "min": 0,
+          "max": 0.5,
+          "step": 0.01,
+          "default": 0.12
+        }
+      ]
+    }
+  ],
+  "values": {}
+}

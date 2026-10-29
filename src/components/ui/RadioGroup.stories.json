@@ -1,0 +1,80 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Radio Group",
+  "component": "./RadioGroup.tsx#RadioGroup",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "layout",
+          "control": "segmented",
+          "label": "Layout",
+          "options": [
+            "list",
+            "cards"
+          ],
+          "default": "list"
+        },
+        {
+          "prop": "direction",
+          "control": "segmented",
+          "label": "Direction",
+          "options": [
+            "vertical",
+            "horizontal"
+          ],
+          "default": "vertical"
+        }
+      ]
+    },
+    {
+      "title": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "swell",
+          "control": "slider",
+          "label": "Press swell",
+          "min": 1,
+          "max": 1.6,
+          "step": 0.01,
+          "default": 1.18
+        }
+      ]
+    }
+  ],
+  "values": {
+    "value": "auto",
+    "options": [
+      {
+        "value": "auto",
+        "label": "Automatic",
+        "description": "Match the system setting"
+      },
+      {
+        "value": "light",
+        "label": "Light",
+        "description": "Bright frosted surfaces"
+      },
+      {
+        "value": "dark",
+        "label": "Dark",
+        "description": "Low-light glass"
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "version": 2,
+  "targets": {
+    "story:src/components/liquid-glass-slider/LiquidGlassSlider.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ThemeToggle.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ThemeSwitcher.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/routes/index.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Card.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/routes/kit.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Button.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/SegmentedControl.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Checkbox.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/LiquidGlass.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/TextField.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Icon.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Progress.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/RadioGroup.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/Switch.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/UiKitGallery.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/ui/RangeSlider.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ],
+    "story:src/components/site/MobileAppShowcase.stories.json": [
+      {
+        "id": "frame-1",
+        "breakpoint": "desktop"
+      }
+    ]
+  }
+}

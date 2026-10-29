@@ -1,0 +1,10 @@
+# pnpm 11 re-verifies committed lockfiles against its default 24-hour
+# minimumReleaseAge. Forge ships this lockfile as part of the signed app, so
+# trust those exact resolutions while keeping the age policy enabled for
+# dependencies resolved later by the user.
+trustLockfile: true
+
+# esbuild ships a postinstall that installs its platform binary. pnpm 10+
+# requires dependency build scripts to be explicitly allowlisted.
+allowBuilds:
+  esbuild: true

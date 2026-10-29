@@ -1,0 +1,5 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Home",
+  "page": "/"
+}

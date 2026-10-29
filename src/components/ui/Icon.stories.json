@@ -1,0 +1,55 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Icon",
+  "component": "./Icon.tsx#Icon",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "name",
+          "control": "select",
+          "label": "Icon",
+          "options": [
+            "sun",
+            "moon",
+            "plus",
+            "minus",
+            "check",
+            "close",
+            "search",
+            "arrow-right",
+            "chevron-down",
+            "settings",
+            "bell",
+            "volume",
+            "sparkle"
+          ],
+          "default": "sparkle"
+        },
+        {
+          "prop": "size",
+          "control": "slider",
+          "label": "Size",
+          "min": 10,
+          "max": 64,
+          "step": 1,
+          "default": 15
+        },
+        {
+          "prop": "strokeWidth",
+          "control": "slider",
+          "label": "Stroke",
+          "min": 1,
+          "max": 3,
+          "step": 0.1,
+          "default": 2
+        }
+      ]
+    }
+  ],
+  "values": {}
+}

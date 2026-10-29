@@ -1,0 +1,58 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Card",
+  "component": "./Card.tsx#Card",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "padding",
+          "control": "segmented",
+          "label": "Padding",
+          "options": [
+            "compact",
+            "comfortable",
+            "spacious"
+          ],
+          "default": "comfortable"
+        }
+      ]
+    },
+    {
+      "title": "Layout",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "showHeader",
+          "control": "switch",
+          "label": "Header",
+          "default": true
+        },
+        {
+          "prop": "divider",
+          "control": "switch",
+          "label": "Dividers",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "values": {
+    "title": "Display",
+    "description": "Adjust how surfaces look on this device."
+  }
+}

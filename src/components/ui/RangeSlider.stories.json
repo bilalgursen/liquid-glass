@@ -1,0 +1,201 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Range Slider",
+  "component": "./RangeSlider.tsx#RangeSlider",
+  "canvas": {
+    "layout": "padded"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "value",
+          "control": "slider",
+          "label": "Value",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "prop": "size",
+          "control": "segmented",
+          "label": "Size",
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "default": "md"
+        },
+        {
+          "prop": "restFrost",
+          "control": "slider",
+          "label": "Resting frost",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0
+        }
+      ]
+    },
+    {
+      "title": "Glass",
+      "tab": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "refraction",
+          "control": "slider",
+          "label": "Refraction",
+          "min": 0,
+          "max": 80,
+          "step": 1,
+          "default": 37
+        },
+        {
+          "prop": "magnification",
+          "control": "slider",
+          "label": "Magnification",
+          "min": 0,
+          "max": 0.5,
+          "step": 0.01,
+          "default": 0
+        },
+        {
+          "prop": "dispersion",
+          "control": "slider",
+          "label": "Dispersion",
+          "min": 0,
+          "max": 0.6,
+          "step": 0.01,
+          "default": 0.12
+        },
+        {
+          "prop": "rimIntensity",
+          "control": "slider",
+          "label": "Rim light",
+          "min": 0,
+          "max": 1.5,
+          "step": 0.01,
+          "default": 0.55
+        }
+      ]
+    },
+    {
+      "title": "Parts",
+      "tab": "Parts",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "showValue",
+          "control": "switch",
+          "label": "Show value",
+          "default": true
+        },
+        {
+          "prop": "startIcon",
+          "control": "select",
+          "label": "Start icon",
+          "options": [
+            "none",
+            "sun",
+            "moon",
+            "plus",
+            "minus",
+            "check",
+            "close",
+            "search",
+            "arrow-right",
+            "chevron-down",
+            "settings",
+            "bell",
+            "volume",
+            "sparkle"
+          ],
+          "default": "none"
+        },
+        {
+          "prop": "endIcon",
+          "control": "select",
+          "label": "End icon",
+          "options": [
+            "none",
+            "sun",
+            "moon",
+            "plus",
+            "minus",
+            "check",
+            "close",
+            "search",
+            "arrow-right",
+            "chevron-down",
+            "settings",
+            "bell",
+            "volume",
+            "sparkle"
+          ],
+          "default": "none"
+        }
+      ]
+    },
+    {
+      "title": "Motion",
+      "tab": "Motion",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "motionSmoothing",
+          "control": "slider",
+          "label": "Follow speed",
+          "min": 5,
+          "max": 60,
+          "step": 1,
+          "default": 30
+        },
+        {
+          "prop": "motionStretch",
+          "control": "slider",
+          "label": "Drag stretch",
+          "min": 0,
+          "max": 10,
+          "step": 0.1,
+          "default": 3
+        },
+        {
+          "prop": "pressSpeed",
+          "control": "slider",
+          "label": "Press speed",
+          "min": 4,
+          "max": 30,
+          "step": 0.5,
+          "default": 16
+        },
+        {
+          "prop": "pressBounce",
+          "control": "slider",
+          "label": "Press bounce",
+          "min": 0,
+          "max": 0.9,
+          "step": 0.01,
+          "default": 0.4
+        }
+      ]
+    }
+  ],
+  "values": {
+    "label": "Volume"
+  }
+}

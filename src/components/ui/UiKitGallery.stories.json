@@ -1,0 +1,59 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "UI Kit Gallery",
+  "component": "./UiKitGallery.tsx#UiKitGallery",
+  "canvas": {
+    "layout": "flow"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Theme",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "columns",
+          "control": "segmented",
+          "label": "Columns",
+          "options": [
+            "2",
+            "3"
+          ],
+          "default": "2"
+        }
+      ]
+    },
+    {
+      "title": "Layout",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "padding",
+          "control": "segmented",
+          "label": "Card padding",
+          "options": [
+            "compact",
+            "comfortable",
+            "spacious"
+          ],
+          "default": "comfortable"
+        },
+        {
+          "prop": "showDescriptions",
+          "control": "switch",
+          "label": "Card descriptions",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "values": {}
+}

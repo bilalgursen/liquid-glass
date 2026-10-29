@@ -1,0 +1,19 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Theme Switcher",
+  "component": "./ThemeSwitcher.tsx#ThemeSwitcher",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        { "prop": "theme", "control": "segmented", "label": "Theme", "options": ["light", "dark"], "default": "light" },
+        { "prop": "showLabels", "control": "switch", "label": "Labels", "default": true },
+        { "prop": "indicatorTransition", "control": "spring", "label": "Indicator spring", "default": { "type": "spring", "duration": 0.4, "bounce": 0.2 } }
+      ]
+    }
+  ],
+  "values": {}
+}
