@@ -66,13 +66,12 @@ function useWindowSize() {
 }
 
 // The buttons' cursor rim (glass/runtime.ts) as a conic sweep: cos² white on the side facing
-// the pointer, a faint cool bounce on the far side.
+// the pointer and a faint white bounce on the far side (no tint, so nothing reads as static colour).
 const litRim = `conic-gradient(from var(--light-angle, 0deg),
   rgba(255, 255, 255, 0.9) 0deg, rgba(255, 255, 255, 0.68) 30deg, rgba(255, 255, 255, 0.45) 45deg,
   rgba(255, 255, 255, 0.22) 60deg, rgba(255, 255, 255, 0.06) 75deg, transparent 90deg,
-  rgba(31, 153, 255, 0.14) 120deg, rgba(31, 153, 255, 0.28) 135deg, rgba(31, 153, 255, 0.41) 150deg,
-  rgba(31, 153, 255, 0.55) 180deg, rgba(31, 153, 255, 0.41) 210deg, rgba(31, 153, 255, 0.28) 225deg,
-  rgba(31, 153, 255, 0.14) 240deg, transparent 270deg, rgba(255, 255, 255, 0.06) 285deg,
+  rgba(255, 255, 255, 0.05) 135deg, rgba(255, 255, 255, 0.12) 180deg, rgba(255, 255, 255, 0.05) 225deg,
+  transparent 270deg, rgba(255, 255, 255, 0.06) 285deg,
   rgba(255, 255, 255, 0.22) 300deg, rgba(255, 255, 255, 0.45) 315deg, rgba(255, 255, 255, 0.68) 330deg,
   rgba(255, 255, 255, 0.9) 360deg)`
 
