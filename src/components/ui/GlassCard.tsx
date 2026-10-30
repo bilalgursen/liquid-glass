@@ -29,6 +29,8 @@ export type GlassCardProps = {
   radius?: number
   /** Drag the glass over whatever is on the page, as on the reference. */
   draggable?: boolean
+  /** Rim highlight follows the cursor, as on the glass buttons. */
+  cursorLight?: boolean
   children?: ReactNode
   className?: string
   style?: CSSProperties
@@ -63,6 +65,55 @@ function useWindowSize() {
   return size
 }
 
+// The buttons' cursor rim (glass/runtime.ts) as a conic sweep: cos² white on the side facing
+// the pointer, a faint cool bounce on the far side.
+const litRim = `conic-gradient(from var(--light-angle, 0deg),
+  rgba(255, 255, 255, 0.9) 0deg, rgba(255, 255, 255, 0.68) 30deg, rgba(255, 255, 255, 0.45) 45deg,
+  rgba(255, 255, 255, 0.22) 60deg, rgba(255, 255, 255, 0.06) 75deg, transparent 90deg,
+  rgba(31, 153, 255, 0.14) 120deg, rgba(31, 153, 255, 0.28) 135deg, rgba(31, 153, 255, 0.41) 150deg,
+  rgba(31, 153, 255, 0.55) 180deg, rgba(31, 153, 255, 0.41) 210deg, rgba(31, 153, 255, 0.28) 225deg,
+  rgba(31, 153, 255, 0.14) 240deg, transparent 270deg, rgba(255, 255, 255, 0.06) 285deg,
+  rgba(255, 255, 255, 0.22) 300deg, rgba(255, 255, 255, 0.45) 315deg, rgba(255, 255, 255, 0.68) 330deg,
+  rgba(255, 255, 255, 0.9) 360deg)`
+
+// Aims the rim at the pointer anywhere on the page; fades out when it leaves the window,
+// so touch-only or idle pages keep the plain border.
+function useCursorLight(enabled: boolean) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!enabled || !el) return
+    const pointer = { x: 0, y: 0 }
+    let frame = 0
+    const aim = () => {
+      frame = 0
+      const rect = el.getBoundingClientRect()
+      const dx = pointer.x - (rect.left + rect.width / 2)
+      const dy = pointer.y - (rect.top + rect.height / 2)
+      if (Math.hypot(dx, dy) > 0.5) el.style.setProperty('--light-angle', `${(Math.atan2(dx, -dy) * 180) / Math.PI}deg`)
+    }
+    const schedule = () => (frame ||= requestAnimationFrame(aim))
+    const onMove = (e: globalThis.PointerEvent) => {
+      pointer.x = e.clientX
+      pointer.y = e.clientY
+      el.style.setProperty('--light-mix', '1')
+      schedule()
+    }
+    const onLeave = () => el.style.setProperty('--light-mix', '0')
+    window.addEventListener('pointermove', onMove, { passive: true })
+    // Scrolling moves the card under a still cursor.
+    window.addEventListener('scroll', schedule, { passive: true, capture: true })
+    document.documentElement.addEventListener('pointerleave', onLeave)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('scroll', schedule, { capture: true })
+      document.documentElement.removeEventListener('pointerleave', onLeave)
+    }
+  }, [enabled])
+  return ref
+}
+
 /**
  * A frosted glass shape that refracts the live page behind it at its rim: the
  * liquid-glass.vercel.app shader rebuilt as an SVG backdrop filter.
@@ -82,6 +133,7 @@ export function GlassCard({
   height = 120,
   radius = 40,
   draggable = true,
+  cursorLight = true,
   children,
   className = '',
   style,
@@ -91,6 +143,7 @@ export function GlassCard({
   const filterId = `glass-card-${useId().replace(/[^a-zA-Z0-9-]/g, '')}`
   const refracts = useRefractionSupport()
   const basis = useWindowSize()
+  const lightRef = useCursorLight(cursorLight)
 
   const [map, setMap] = useState<RefractionMap | null>(null)
   useEffect(() => {
@@ -116,6 +169,7 @@ export function GlassCard({
 
   return (
     <div
+      ref={lightRef}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -149,6 +203,20 @@ export function GlassCard({
         </svg>
       )}
       {children}
+      {cursorLight && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+          style={{
+            borderRadius: 'inherit',
+            padding: Math.max(borderWidth + 0.4, 1.4),
+            background: litRim,
+            // Keep only the padding ring: the full box minus its content box.
+            mask: 'linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)',
+            opacity: 'var(--light-mix, 0)',
+          }}
+        />
+      )}
     </div>
   )
 }
