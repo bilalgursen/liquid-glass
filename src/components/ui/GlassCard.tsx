@@ -194,8 +194,6 @@ export type GlassCardExamplesProps = Omit<GlassCardProps, 'shape' | 'width' | 'h
   theme?: Theme
 }
 
-const backdropWords = ['Liquid', 'Glass', 'Refract', 'Frost', 'Tint', 'Rim']
-
 const ink = 'text-neutral-900 dark:text-white'
 const muted = 'text-neutral-900/60 dark:text-white/60'
 
@@ -218,7 +216,7 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   )
 }
 
-// A weather card and a search pill, over two looping rows of type and colour they can bend.
+// A weather card and a search pill, over two looping rows of colour they can bend.
 export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCardExamplesProps) {
   const settings = { ...glass, mode: mode ?? theme }
   return (
@@ -232,12 +230,9 @@ export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCard
             style={{ animationDuration: `${36 + row * 8}s`, animationDirection: row % 2 ? 'reverse' : 'normal' }}
           >
             {[0, 1].map((half) => (
-              <div key={half} className="flex items-center gap-5 pr-5">
-                {backdropWords.map((word, i) => (
-                  <span key={word} className="flex items-center gap-5">
-                    <span className={`text-[52px] leading-none font-bold tracking-[-0.03em] ${ink}`}>{word}</span>
-                    <span className="h-8 w-14 shrink-0 rounded-full" style={{ background: swatches[(i + row) % swatches.length] }} />
-                  </span>
+              <div key={half} className="flex items-center gap-3 py-1.5 pr-3">
+                {[...swatches, ...swatches].map((_, i) => (
+                  <span key={i} className="h-12 w-24 shrink-0 rounded-full" style={{ background: swatches[(i + row) % swatches.length] }} />
                 ))}
               </div>
             ))}
