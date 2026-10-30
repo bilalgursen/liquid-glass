@@ -119,11 +119,9 @@ export function UiKitGallery({
             <RangeSlider label="Brightness" value={40} size="sm" startIcon="moon" endIcon="sun" restFrost={1} />
           </Card>
 
+          {/* Spans the whole row so the pill rows run edge to edge behind the centred cards. */}
           <div className="md:col-span-full">
-            <Card
-              {...card('Glass cards', 'A weather card and a calendar card. The rims bend the colour sliding behind them.')}
-              wide
-            >
+            <Card {...card('Glass cards', 'A weather card and a calendar card. The rims bend the colour sliding behind them.')} wide>
               <GlassCardExamples theme={current} />
             </Card>
           </div>

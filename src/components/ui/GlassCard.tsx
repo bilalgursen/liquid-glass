@@ -29,6 +29,8 @@ export type GlassCardProps = {
   radius?: number
   /** Let the glass be dragged over the page, as on the reference (off by default). */
   draggable?: boolean
+  /** Drop shadow strength, as the buttons' `shadowOpacity` (0 for none). */
+  shadowOpacity?: number
   children?: ReactNode
   className?: string
   style?: CSSProperties
@@ -82,6 +84,7 @@ export function GlassCard({
   height = 120,
   radius = 40,
   draggable = false,
+  shadowOpacity = 0.12,
   children,
   className = '',
   style,
@@ -113,6 +116,16 @@ export function GlassCard({
   const blur = (frostedRadius / 2) * frostedOverlay
   const backdropFilter = refracts && map ? `url(#${filterId})` : blur > 0 ? `blur(${blur}px)` : 'none'
   const borderRadius = shape === 'rounded' ? Math.min(radius, width / 2, h / 2) : shape === 'rectangle' ? 0 : '50%'
+  // The glass buttons' resting drop shadow (glass/runtime.ts): a tight and an ambient layer,
+  // with offset and softness scaled to the glass height as the buttons scale their optics.
+  const k = h / 120
+  // A CSS shadow is only half strength at the glass edge, where the shader's is full.
+  const shadowAlpha = shadowOpacity
+  const shadows = [
+    borderWidth > 0 && `inset 0 0 1px ${borderWidth}px ${rgba(colors.borderColor, colors.borderAlpha)}`,
+    shadowAlpha > 0 && `0 ${11 * k}px ${20 * k + 6}px rgba(0, 0, 0, ${shadowAlpha})`,
+    shadowAlpha > 0 && `0 ${17.6 * k}px ${30.6 * k + 10}px rgba(0, 0, 0, ${shadowAlpha})`,
+  ].filter(Boolean)
 
   return (
     <div
@@ -130,7 +143,7 @@ export function GlassCard({
         WebkitBackdropFilter: backdropFilter,
         // Tint over the frosted backdrop, then the inner rim, as in the shader.
         background: rgba(colors.tintColor, colors.tintAlpha),
-        boxShadow: borderWidth > 0 ? `inset 0 0 1px ${borderWidth}px ${rgba(colors.borderColor, colors.borderAlpha)}` : undefined,
+        boxShadow: shadows.length ? shadows.join(', ') : undefined,
         ...style,
       }}
     >
@@ -189,7 +202,10 @@ export function GlassCardPreview({ theme = 'light', stageWidth, stageHeight = 42
   )
 }
 
-export type GlassCardExamplesProps = Omit<GlassCardProps, 'shape' | 'width' | 'height' | 'radius' | 'children'> & {
+export type GlassCardExamplesProps = Omit<
+  GlassCardProps,
+  'mode' | 'tintColor' | 'tintAlpha' | 'borderColor' | 'borderAlpha' | 'shape' | 'width' | 'height' | 'radius' | 'children'
+> & {
   theme?: Theme
   /** GitHub user and repo the calendar card links to. */
   githubUser?: string
@@ -236,7 +252,7 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-y-0 select-none [--edge:var(--color-canvas)] dark:[--edge:var(--color-canvas-dark)] ${side === 'left' ? 'left-0' : 'right-0'}`}
+      className={`pointer-events-none absolute inset-y-0 select-none [--edge:var(--color-canvas)] dark:[--edge:var(--color-canvas-dark)] ${side === 'left' ? '-left-px' : '-right-px'}`}
       style={{
         width,
         background: `linear-gradient(${inward}, var(--edge), transparent)`,
@@ -249,22 +265,36 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   )
 }
 
-// The visitor's live weather and a calendar card, over a looping row of colour they can bend.
-export function GlassCardExamples({ theme = 'light', mode, githubUser = 'bilalgursen', githubRepo = 'liquid-glass', ...glass }: GlassCardExamplesProps) {
-  const settings = { ...glass, mode: mode ?? theme }
+// The visitor's live weather and a calendar card, over two looping rows of colour they can bend.
+export function GlassCardExamples({ theme = 'light', githubUser = 'bilalgursen', githubRepo = 'liquid-glass', ...glass }: GlassCardExamplesProps) {
+  // A fixed 60% tint: white glass on the light page, black on the dark one.
+  const settings = {
+    ...glass,
+    mode: 'custom' as const,
+    tintColor: theme === 'dark' ? '#000000' : '#ffffff',
+    tintAlpha: 0.6,
+    borderColor: presets[theme].borderColor,
+    borderAlpha: presets[theme].borderAlpha,
+  }
   return (
-    <div data-theme={theme} className="relative w-full overflow-hidden rounded-2xl bg-canvas py-10 dark:bg-canvas-dark">
-      {/* The row loops forever: two identical halves slide by exactly one half. */}
+    <div data-theme={theme} className="relative w-full rounded-2xl bg-canvas py-10 dark:bg-canvas-dark">
+      {/* Rows loop forever: two identical halves slide by exactly one half. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden">
-        <div className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none" style={{ animationDuration: '44s', animationDirection: 'reverse' }}>
-          {[0, 1].map((half) => (
-            <div key={half} className="flex items-center gap-3 py-1.5 pr-3">
-              {[...swatches, ...swatches].map((color, i) => (
-                <span key={i} className="h-12 w-24 shrink-0 rounded-full" style={{ background: color }} />
-              ))}
-            </div>
-          ))}
-        </div>
+        {[0, 1].map((row) => (
+          <div
+            key={row}
+            className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none"
+            style={{ animationDuration: `${36 + row * 8}s`, animationDirection: row % 2 ? 'reverse' : 'normal' }}
+          >
+            {[0, 1].map((half) => (
+              <div key={half} className="flex items-center gap-3 py-1.5 pr-3">
+                {[...swatches, ...swatches].map((_, i) => (
+                  <span key={i} className="h-12 w-24 shrink-0 rounded-full" style={{ background: swatches[(i + row * 3) % swatches.length] }} />
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
       <ProgressiveBlur side="left" />
       <ProgressiveBlur side="right" />
