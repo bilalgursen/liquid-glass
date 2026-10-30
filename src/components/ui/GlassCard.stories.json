@@ -160,7 +160,7 @@
           "prop": "draggable",
           "control": "switch",
           "label": "Draggable",
-          "default": true
+          "default": false
         }
       ]
     }

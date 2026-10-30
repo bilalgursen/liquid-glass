@@ -27,7 +27,7 @@ export type GlassCardProps = {
   height?: number
   /** Corner radius for the rounded shape. */
   radius?: number
-  /** Drag the glass over whatever is on the page, as on the reference. */
+  /** Let the glass be dragged over the page, as on the reference (off by default). */
   draggable?: boolean
   children?: ReactNode
   className?: string
@@ -81,7 +81,7 @@ export function GlassCard({
   width = 500,
   height = 120,
   radius = 40,
-  draggable = true,
+  draggable = false,
   children,
   className = '',
   style,
@@ -120,7 +120,7 @@ export function GlassCard({
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
-      className={`relative flex touch-none items-center justify-center select-none ${draggable ? 'cursor-grab active:cursor-grabbing' : ''} ${className}`}
+      className={`relative flex items-center justify-center select-none ${draggable ? 'touch-none cursor-grab active:cursor-grabbing' : ''} ${className}`}
       style={{
         width,
         height: h,
@@ -181,8 +181,7 @@ export function GlassCardPreview({ theme = 'light', stageWidth, stageHeight = 42
           ))}
         </div>
         <p className={`max-w-[46ch] text-neutral-500 ${compact ? 'text-[12px]' : 'text-[15px]'}`}>
-          The rim bends the page behind it while the face frosts and tints whatever passes underneath. Drag the glass across
-          the text and colours.
+          The rim bends the page behind it while the face frosts and tints whatever passes underneath.
         </p>
       </div>
       <GlassCard {...glass} />
