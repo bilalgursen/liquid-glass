@@ -2,8 +2,8 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type PointerEve
 
 import { createRefractionMap, type GlassShape, type RefractionMap } from './glass/refractionMap'
 import { hexToRgb } from './glass/tokens'
-import { Icon } from './Icon'
-import type { Theme } from './shared'
+import { LiveWeather } from './LiveWeather'
+import { focusRing, type Theme } from './shared'
 
 export type GlassCardMode = 'light' | 'dark' | 'custom'
 
@@ -191,15 +191,44 @@ export function GlassCardPreview({ theme = 'light', stageWidth, stageHeight = 42
 
 export type GlassCardExamplesProps = Omit<GlassCardProps, 'shape' | 'width' | 'height' | 'radius' | 'children'> & {
   theme?: Theme
+  /** GitHub user and repo the calendar card links to. */
+  githubUser?: string
+  githubRepo?: string
 }
 
 const ink = 'text-neutral-900 dark:text-white'
 const muted = 'text-neutral-900/60 dark:text-white/60'
 
-const agenda = [
-  { title: 'Design review', time: '14:00 – 15:00', color: '#3291FF' },
-  { title: 'Ship glass cards', time: '16:30 – 17:00', color: '#FF6B3D' },
-]
+// The calendar card's layout (today's weekday and date over coloured agenda bars), with
+// two "events" that link visitors to the author's GitHub profile and repo.
+function GitHubAgenda({ user, repo }: { user: string; repo: string }) {
+  // Read the date after mount so the prerendered page doesn't freeze the build day.
+  const [today, setToday] = useState<Date | null>(null)
+  useEffect(() => setToday(new Date()), [])
+  const items = [
+    { title: 'Visit my GitHub', note: `github.com/${user}`, href: `https://github.com/${user}`, color: '#3291FF' },
+    { title: `Star ${repo}`, note: 'Leave a star on the repo', href: `https://github.com/${user}/${repo}`, color: '#FF6B3D' },
+  ]
+  return (
+    <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
+      <div className="flex items-baseline justify-between">
+        <p className="text-[14px] font-extrabold tracking-[-0.01em]">{today ? today.toLocaleDateString('en-US', { weekday: 'long' }) : 'Today'}</p>
+        <p className="text-[34px] leading-none font-black tracking-[-0.05em]">{today ? today.getDate() : ''}</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        {items.map((item) => (
+          <a key={item.title} href={item.href} target="_blank" rel="noreferrer" className={`flex items-stretch gap-2.5 rounded-sm ${focusRing}`}>
+            <span className="w-1 shrink-0 rounded-full" style={{ background: item.color }} />
+            <span>
+              <span className="block text-[13px] leading-tight font-extrabold">{item.title}</span>
+              <span className={`block text-[11px] font-bold ${muted}`}>{item.note}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // Skiper UI's progressive blur (skiper41), turned sideways to soften where the rows enter and leave.
 function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'right'; width?: number; blur?: number }) {
@@ -220,63 +249,33 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   )
 }
 
-// A weather card and a calendar card, over two looping rows of colour they can bend.
-export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCardExamplesProps) {
+// The visitor's live weather and a calendar card, over a looping row of colour they can bend.
+export function GlassCardExamples({ theme = 'light', mode, githubUser = 'bilalgursen', githubRepo = 'liquid-glass', ...glass }: GlassCardExamplesProps) {
   const settings = { ...glass, mode: mode ?? theme }
   return (
     <div data-theme={theme} className="relative w-full overflow-hidden rounded-2xl bg-canvas py-10 dark:bg-canvas-dark">
-      {/* Rows loop forever: two identical halves slide by exactly one half. */}
+      {/* The row loops forever: two identical halves slide by exactly one half. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden">
-        {[1, 2].map((row) => (
-          <div
-            key={row}
-            className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none"
-            style={{ animationDuration: `${36 + row * 8}s`, animationDirection: row % 2 ? 'reverse' : 'normal' }}
-          >
-            {[0, 1].map((half) => (
-              <div key={half} className="flex items-center gap-3 py-1.5 pr-3">
-                {[...swatches, ...swatches].map((_, i) => (
-                  <span key={i} className="h-12 w-24 shrink-0 rounded-full" style={{ background: swatches[(i + row) % swatches.length] }} />
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
+        <div className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none" style={{ animationDuration: '44s', animationDirection: 'reverse' }}>
+          {[0, 1].map((half) => (
+            <div key={half} className="flex items-center gap-3 py-1.5 pr-3">
+              {[...swatches, ...swatches].map((color, i) => (
+                <span key={i} className="h-12 w-24 shrink-0 rounded-full" style={{ background: color }} />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
       <ProgressiveBlur side="left" />
       <ProgressiveBlur side="right" />
 
       <div className="relative flex flex-wrap items-center justify-center gap-6 px-6">
         <GlassCard {...settings} shape="rounded" width={180} height={180} radius={28}>
-          <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
-            <div className="flex items-center gap-1.5 text-[14px] font-extrabold tracking-[-0.01em]">
-              <Icon name="sun" size={15} strokeWidth={2.75} /> Istanbul
-            </div>
-            <div>
-              <p className="text-[56px] leading-none font-black tracking-[-0.05em]">24°</p>
-              <p className={`mt-1.5 text-[12px] font-bold ${muted}`}>Sunny · H 27° L 18°</p>
-            </div>
-          </div>
+          <LiveWeather className={ink} />
         </GlassCard>
 
         <GlassCard {...settings} shape="rounded" width={260} height={180} radius={28}>
-          <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
-            <div className="flex items-baseline justify-between">
-              <p className="text-[14px] font-extrabold tracking-[-0.01em]">Thursday</p>
-              <p className="text-[34px] leading-none font-black tracking-[-0.05em]">30</p>
-            </div>
-            <div className="flex flex-col gap-2">
-              {agenda.map((item) => (
-                <div key={item.title} className="flex items-stretch gap-2.5">
-                  <span className="w-1 shrink-0 rounded-full" style={{ background: item.color }} />
-                  <div>
-                    <p className="text-[13px] leading-tight font-extrabold">{item.title}</p>
-                    <p className={`text-[11px] font-bold ${muted}`}>{item.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <GitHubAgenda user={githubUser} repo={githubRepo} />
         </GlassCard>
       </div>
     </div>
