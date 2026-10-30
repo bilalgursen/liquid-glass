@@ -4,3 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # Netlify's CI sets NETLIFY=true, which makes Nitro pick its serverless
+  # "netlify" preset and skip `.output/public`. The prerender step only
+  # writes there under the default node-server preset, so pin it.
+  NITRO_PRESET = "node-server"
