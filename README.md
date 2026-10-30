@@ -1,6 +1,6 @@
 # Liquid Glass UI
 
-**Live:** https://liquid-glass-react.netlify.app · **Source:** https://github.com/bilalgursen/liquid-glass
+**Live:** https://liquid-glass-7om.pages.dev · **Source:** https://github.com/bilalgursen/liquid-glass
 
 An open-source React component kit where every control is a real refracting
 lens: one WebGL shader, damped spring physics, light and dark themes. Ten
@@ -15,8 +15,9 @@ diagram), and get-started notes. The glass is reserved for the components
 themselves; everything around them is plain, hairline-and-mono site chrome
 built on shadcn/ui.
 
-The site deploys to Netlify from `main` (`netlify.toml`: `pnpm build`,
-published from `.output/public`).
+The site deploys to Cloudflare Pages from `main` (build `pnpm build`,
+output `.output/public`, env `NITRO_PRESET=node-server` so the static
+prerender lands there instead of a serverless preset).
 
 ## Run it
 
