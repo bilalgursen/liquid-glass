@@ -2,6 +2,7 @@
   "name": "cheerful-coral",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.8.1",
   "imports": {
     "#/*": "./src/*"
   },
