@@ -1,5 +1,6 @@
 import { Button } from './Button'
 import { Card } from './Card'
+import { GlassCardExamples } from './GlassCard'
 import { RangeSlider } from './RangeSlider'
 import { SegmentedControl } from './SegmentedControl'
 import { Switch } from './Switch'
@@ -117,6 +118,15 @@ export function UiKitGallery({
           <Card {...card('Sliders', 'Glass thumbs over the accent fill; press and drag to swell the lens.')}>
             <RangeSlider label="Brightness" value={40} size="sm" startIcon="moon" endIcon="sun" restFrost={1} />
           </Card>
+
+          <div className="md:col-span-full">
+            <Card
+              {...card('Glass cards', 'Square, rectangle and pill glass filled with content. The rims bend the page behind them; drag any card over the toggles.')}
+              wide
+            >
+              <GlassCardExamples theme={current} />
+            </Card>
+          </div>
         </div>
       </div>
     </div>

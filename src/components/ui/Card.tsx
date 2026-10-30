@@ -11,6 +11,8 @@ export type CardProps = {
   padding?: 'compact' | 'comfortable' | 'spacious'
   showHeader?: boolean
   divider?: boolean
+  /** Lift the max width so the card can span a full grid row. */
+  wide?: boolean
 }
 
 const paddings = { compact: 'p-4 gap-3', comfortable: 'p-6 gap-5', spacious: 'p-8 gap-6' }
@@ -25,9 +27,10 @@ export function Card({
   padding = 'comfortable',
   showHeader = true,
   divider = false,
+  wide = false,
 }: CardProps) {
   return (
-    <section data-theme={theme} className={`relative flex w-full max-w-sm flex-col ${paddings[padding]}`}>
+    <section data-theme={theme} className={`relative flex w-full flex-col ${wide ? '' : 'max-w-sm'} ${paddings[padding]}`}>
       {showHeader && (title || description) && (
         <header className={`flex flex-col gap-0.5 ${divider ? 'border-b border-black/[0.06] pb-4 dark:border-white/[0.08]' : ''}`}>
           {title && <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-neutral-900 dark:text-white">{title}</h3>}

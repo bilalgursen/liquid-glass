@@ -9,6 +9,13 @@
   --color-accent-deep: #02458f;
   --color-canvas: #dcdde0;
   --color-canvas-dark: #141518;
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {

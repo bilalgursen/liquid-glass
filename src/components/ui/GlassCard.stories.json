@@ -1,0 +1,172 @@
+{
+  "$schema": "https://forge.ui8.ai/schemas/stories.v3.json",
+  "name": "Glass Card",
+  "component": "./GlassCard.tsx#GlassCardPreview",
+  "canvas": {
+    "layout": "centered"
+  },
+  "sections": [
+    {
+      "title": null,
+      "controls": [
+        {
+          "prop": "theme",
+          "control": "segmented",
+          "label": "Page",
+          "options": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "mode",
+          "control": "segmented",
+          "label": "Mode",
+          "options": [
+            "light",
+            "dark",
+            "custom"
+          ],
+          "default": "light"
+        },
+        {
+          "prop": "shape",
+          "control": "select",
+          "label": "Shape",
+          "options": [
+            "rounded",
+            "rectangle",
+            "circle",
+            "ellipse"
+          ],
+          "default": "rounded"
+        }
+      ]
+    },
+    {
+      "title": "Color (custom mode)",
+      "tab": "Color",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "tintColor",
+          "control": "color",
+          "label": "Tint color",
+          "default": "#ffffff"
+        },
+        {
+          "prop": "tintAlpha",
+          "control": "slider",
+          "label": "Tint alpha",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0.15
+        },
+        {
+          "prop": "borderColor",
+          "control": "color",
+          "label": "Border color",
+          "default": "#ffffff"
+        },
+        {
+          "prop": "borderAlpha",
+          "control": "slider",
+          "label": "Border alpha",
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "default": 0.6
+        }
+      ]
+    },
+    {
+      "title": "Glass",
+      "tab": "Glass",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "frostedOverlay",
+          "control": "slider",
+          "label": "Frosted overlay",
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "default": 1
+        },
+        {
+          "prop": "frostedRadius",
+          "control": "slider",
+          "label": "Frosted radius",
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "default": 10
+        },
+        {
+          "prop": "borderWidth",
+          "control": "slider",
+          "label": "Border width",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "default": 1.3
+        },
+        {
+          "prop": "refractStrength",
+          "control": "slider",
+          "label": "Refract strength",
+          "min": 0,
+          "max": 0.15,
+          "step": 0.005,
+          "default": 0.065
+        }
+      ]
+    },
+    {
+      "title": "Size",
+      "tab": "Size",
+      "collapsible": true,
+      "controls": [
+        {
+          "prop": "width",
+          "control": "slider",
+          "label": "Width",
+          "min": 60,
+          "max": 900,
+          "step": 1,
+          "default": 500
+        },
+        {
+          "prop": "height",
+          "control": "slider",
+          "label": "Height",
+          "min": 40,
+          "max": 500,
+          "step": 1,
+          "default": 120
+        },
+        {
+          "prop": "radius",
+          "control": "slider",
+          "label": "Radius",
+          "min": 0,
+          "max": 250,
+          "step": 1,
+          "default": 40
+        },
+        {
+          "prop": "draggable",
+          "control": "switch",
+          "label": "Draggable",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "values": {
+    "stageWidth": 880,
+    "stageHeight": 420
+  }
+}
