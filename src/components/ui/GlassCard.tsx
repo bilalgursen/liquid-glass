@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type PointerEve
 
 import { createRefractionMap, type GlassShape, type RefractionMap } from './glass/refractionMap'
 import { hexToRgb } from './glass/tokens'
-import { Icon, type IconName } from './Icon'
+import { Icon } from './Icon'
 import type { Theme } from './shared'
 
 export type GlassCardMode = 'light' | 'dark' | 'custom'
@@ -266,13 +266,6 @@ const backdropWords = ['Liquid', 'Glass', 'Refract', 'Frost', 'Tint', 'Rim']
 const ink = 'text-neutral-900 dark:text-white'
 const muted = 'text-neutral-900/60 dark:text-white/60'
 
-const tiles: { icon: IconName; label: string; on: boolean }[] = [
-  { icon: 'bell', label: 'Alerts', on: true },
-  { icon: 'moon', label: 'Focus', on: false },
-  { icon: 'volume', label: 'Sound', on: true },
-  { icon: 'settings', label: 'More', on: false },
-]
-
 // Skiper UI's progressive blur (skiper41), turned sideways to soften where the rows enter and leave.
 function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'right'; width?: number; blur?: number }) {
   const inward = side === 'left' ? 'to right' : 'to left'
@@ -292,14 +285,14 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   )
 }
 
-// Square, rectangle and pill cards filled with content, over type and colour they can bend.
+// A weather card and a search pill, over two looping rows of type and colour they can bend.
 export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCardExamplesProps) {
   const settings = { ...glass, mode: mode ?? theme }
   return (
     <div data-theme={theme} className="relative w-full overflow-hidden rounded-2xl bg-canvas py-10 dark:bg-canvas-dark">
       {/* Rows loop forever: two identical halves slide by exactly one half. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col justify-around overflow-hidden py-4">
-        {[0, 1, 2, 3].map((row) => (
+        {[1, 2].map((row) => (
           <div
             key={row}
             className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none"
@@ -330,56 +323,6 @@ export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCard
             <div>
               <p className="text-[52px] leading-none font-light tracking-[-0.04em]">24°</p>
               <p className={`mt-1.5 text-[12px] ${muted}`}>Sunny · H 27° L 18°</p>
-            </div>
-          </div>
-        </GlassCard>
-
-        <GlassCard {...settings} shape="rounded" width={360} height={180} radius={24}>
-          <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
-            <div>
-              <p className={`text-[11px] font-medium tracking-[0.08em] uppercase ${muted}`}>Now playing</p>
-              <p className="mt-1.5 text-[19px] font-semibold tracking-[-0.01em]">Through the Glass</p>
-              <p className={`text-[13px] ${muted}`}>Refraction Ensemble</p>
-            </div>
-            <div>
-              <div className="h-1 w-full overflow-hidden rounded-full bg-current/15">
-                <div className="h-full w-[38%] rounded-full bg-current" />
-              </div>
-              <div className={`mt-1.5 flex justify-between font-mono text-[11px] ${muted}`}>
-                <span>1:24</span>
-                <span>-2:13</span>
-              </div>
-            </div>
-          </div>
-        </GlassCard>
-
-        <GlassCard {...settings} shape="rounded" width={180} height={180} radius={28}>
-          <div className={`grid h-full w-full grid-cols-2 gap-2 p-3 ${ink}`}>
-            {tiles.map((tile) => (
-              <div
-                key={tile.label}
-                className={`flex flex-col items-start justify-between rounded-2xl p-2.5 ${tile.on ? 'bg-accent text-white' : 'bg-current/[0.08]'}`}
-              >
-                <Icon name={tile.icon} size={16} />
-                <span className="text-[11px] font-medium">{tile.label}</span>
-              </div>
-            ))}
-          </div>
-        </GlassCard>
-
-        <GlassCard {...settings} shape="rectangle" width={260} height={140}>
-          <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
-            <div className="flex items-start justify-between">
-              <p className="text-[15px] font-semibold">Storage</p>
-              <p className={`font-mono text-[12px] ${muted}`}>68%</p>
-            </div>
-            <div>
-              <div className="flex h-2 w-full overflow-hidden rounded-full bg-current/15">
-                <div className="h-full w-[38%] bg-[#3291FF]" />
-                <div className="h-full w-[18%] bg-[#FF6B3D]" />
-                <div className="h-full w-[12%] bg-[#22C55E]" />
-              </div>
-              <p className={`mt-2 text-[12px] ${muted}`}>174 GB of 256 GB used</p>
             </div>
           </div>
         </GlassCard>
