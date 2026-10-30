@@ -1,6 +1,6 @@
 # Liquid Glass UI
 
-**Live:** https://liquid-glass-7om.pages.dev · **Source:** https://github.com/bilalgursen/liquid-glass
+**Live:** https://liquid-glass-interface.pages.dev · **Source:** https://github.com/bilalgursen/liquid-glass
 
 An open-source React component kit where every control is a real refracting
 lens: one WebGL shader, damped spring physics, light and dark themes. Ten
