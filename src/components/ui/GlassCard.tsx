@@ -196,6 +196,11 @@ export type GlassCardExamplesProps = Omit<GlassCardProps, 'shape' | 'width' | 'h
 const ink = 'text-neutral-900 dark:text-white'
 const muted = 'text-neutral-900/60 dark:text-white/60'
 
+const agenda = [
+  { title: 'Design review', time: '14:00 – 15:00', color: '#3291FF' },
+  { title: 'Ship glass cards', time: '16:30 – 17:00', color: '#FF6B3D' },
+]
+
 // Skiper UI's progressive blur (skiper41), turned sideways to soften where the rows enter and leave.
 function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'right'; width?: number; blur?: number }) {
   const inward = side === 'left' ? 'to right' : 'to left'
@@ -215,7 +220,7 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
   )
 }
 
-// A weather card and a search pill, over two looping rows of colour they can bend.
+// A weather card and a calendar card, over two looping rows of colour they can bend.
 export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCardExamplesProps) {
   const settings = { ...glass, mode: mode ?? theme }
   return (
@@ -254,10 +259,23 @@ export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCard
           </div>
         </GlassCard>
 
-        <GlassCard {...settings} shape="rounded" width={300} height={56} radius={28}>
-          <div className={`flex w-full items-center gap-2.5 px-5 text-[15px] font-extrabold ${ink}`}>
-            <Icon name="search" size={17} strokeWidth={2.75} />
-            <span className={muted}>Search</span>
+        <GlassCard {...settings} shape="rounded" width={260} height={180} radius={28}>
+          <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
+            <div className="flex items-baseline justify-between">
+              <p className="text-[14px] font-extrabold tracking-[-0.01em]">Thursday</p>
+              <p className="text-[34px] leading-none font-black tracking-[-0.05em]">30</p>
+            </div>
+            <div className="flex flex-col gap-2">
+              {agenda.map((item) => (
+                <div key={item.title} className="flex items-stretch gap-2.5">
+                  <span className="w-1 shrink-0 rounded-full" style={{ background: item.color }} />
+                  <div>
+                    <p className="text-[13px] leading-tight font-extrabold">{item.title}</p>
+                    <p className={`text-[11px] font-bold ${muted}`}>{item.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </GlassCard>
       </div>

@@ -121,7 +121,7 @@ export function UiKitGallery({
 
           <div className="md:col-span-full">
             <Card
-              {...card('Glass cards', 'A weather card and a search pill. The rims bend the colour sliding behind them.')}
+              {...card('Glass cards', 'A weather card and a calendar card. The rims bend the colour sliding behind them.')}
               wide
             >
               <GlassCardExamples theme={current} />
