@@ -29,8 +29,6 @@ export type GlassCardProps = {
   radius?: number
   /** Drag the glass over whatever is on the page, as on the reference. */
   draggable?: boolean
-  /** Rim highlight follows the cursor, as on the glass buttons. */
-  cursorLight?: boolean
   children?: ReactNode
   className?: string
   style?: CSSProperties
@@ -65,54 +63,6 @@ function useWindowSize() {
   return size
 }
 
-// The buttons' cursor rim (glass/runtime.ts) as a conic sweep: cos² white on the side facing
-// the pointer and a faint white bounce on the far side (no tint, so nothing reads as static colour).
-const litRim = `conic-gradient(from var(--light-angle, 0deg),
-  rgba(255, 255, 255, 0.9) 0deg, rgba(255, 255, 255, 0.68) 30deg, rgba(255, 255, 255, 0.45) 45deg,
-  rgba(255, 255, 255, 0.22) 60deg, rgba(255, 255, 255, 0.06) 75deg, transparent 90deg,
-  rgba(255, 255, 255, 0.05) 135deg, rgba(255, 255, 255, 0.12) 180deg, rgba(255, 255, 255, 0.05) 225deg,
-  transparent 270deg, rgba(255, 255, 255, 0.06) 285deg,
-  rgba(255, 255, 255, 0.22) 300deg, rgba(255, 255, 255, 0.45) 315deg, rgba(255, 255, 255, 0.68) 330deg,
-  rgba(255, 255, 255, 0.9) 360deg)`
-
-// Aims the rim at the pointer anywhere on the page; fades out when it leaves the window,
-// so touch-only or idle pages keep the plain border.
-function useCursorLight(enabled: boolean) {
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!enabled || !el) return
-    const pointer = { x: 0, y: 0 }
-    let frame = 0
-    const aim = () => {
-      frame = 0
-      const rect = el.getBoundingClientRect()
-      const dx = pointer.x - (rect.left + rect.width / 2)
-      const dy = pointer.y - (rect.top + rect.height / 2)
-      if (Math.hypot(dx, dy) > 0.5) el.style.setProperty('--light-angle', `${(Math.atan2(dx, -dy) * 180) / Math.PI}deg`)
-    }
-    const schedule = () => (frame ||= requestAnimationFrame(aim))
-    const onMove = (e: globalThis.PointerEvent) => {
-      pointer.x = e.clientX
-      pointer.y = e.clientY
-      el.style.setProperty('--light-mix', '1')
-      schedule()
-    }
-    const onLeave = () => el.style.setProperty('--light-mix', '0')
-    window.addEventListener('pointermove', onMove, { passive: true })
-    // Scrolling moves the card under a still cursor.
-    window.addEventListener('scroll', schedule, { passive: true, capture: true })
-    document.documentElement.addEventListener('pointerleave', onLeave)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('pointermove', onMove)
-      window.removeEventListener('scroll', schedule, { capture: true })
-      document.documentElement.removeEventListener('pointerleave', onLeave)
-    }
-  }, [enabled])
-  return ref
-}
-
 /**
  * A frosted glass shape that refracts the live page behind it at its rim: the
  * liquid-glass.vercel.app shader rebuilt as an SVG backdrop filter.
@@ -132,7 +82,6 @@ export function GlassCard({
   height = 120,
   radius = 40,
   draggable = true,
-  cursorLight = true,
   children,
   className = '',
   style,
@@ -142,7 +91,6 @@ export function GlassCard({
   const filterId = `glass-card-${useId().replace(/[^a-zA-Z0-9-]/g, '')}`
   const refracts = useRefractionSupport()
   const basis = useWindowSize()
-  const lightRef = useCursorLight(cursorLight)
 
   const [map, setMap] = useState<RefractionMap | null>(null)
   useEffect(() => {
@@ -168,7 +116,6 @@ export function GlassCard({
 
   return (
     <div
-      ref={lightRef}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -202,20 +149,6 @@ export function GlassCard({
         </svg>
       )}
       {children}
-      {cursorLight && (
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-          style={{
-            borderRadius: 'inherit',
-            padding: Math.max(borderWidth + 0.4, 1.4),
-            background: litRim,
-            // Keep only the padding ring: the full box minus its content box.
-            mask: 'linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)',
-            opacity: 'var(--light-mix, 0)',
-          }}
-        />
-      )}
     </div>
   )
 }
@@ -291,7 +224,7 @@ export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCard
   return (
     <div data-theme={theme} className="relative w-full overflow-hidden rounded-2xl bg-canvas py-10 dark:bg-canvas-dark">
       {/* Rows loop forever: two identical halves slide by exactly one half. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col justify-around overflow-hidden py-4">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col justify-center overflow-hidden">
         {[1, 2].map((row) => (
           <div
             key={row}
@@ -317,19 +250,19 @@ export function GlassCardExamples({ theme = 'light', mode, ...glass }: GlassCard
       <div className="relative flex flex-wrap items-center justify-center gap-6 px-6">
         <GlassCard {...settings} shape="rounded" width={180} height={180} radius={28}>
           <div className={`flex h-full w-full flex-col justify-between p-5 ${ink}`}>
-            <div className="flex items-center gap-1.5 text-[13px] font-medium">
-              <Icon name="sun" size={14} /> Istanbul
+            <div className="flex items-center gap-1.5 text-[14px] font-extrabold tracking-[-0.01em]">
+              <Icon name="sun" size={15} strokeWidth={2.75} /> Istanbul
             </div>
             <div>
-              <p className="text-[52px] leading-none font-light tracking-[-0.04em]">24°</p>
-              <p className={`mt-1.5 text-[12px] ${muted}`}>Sunny · H 27° L 18°</p>
+              <p className="text-[56px] leading-none font-black tracking-[-0.05em]">24°</p>
+              <p className={`mt-1.5 text-[12px] font-bold ${muted}`}>Sunny · H 27° L 18°</p>
             </div>
           </div>
         </GlassCard>
 
         <GlassCard {...settings} shape="rounded" width={300} height={56} radius={28}>
-          <div className={`flex w-full items-center gap-2.5 px-5 text-[14px] ${ink}`}>
-            <Icon name="search" size={16} />
+          <div className={`flex w-full items-center gap-2.5 px-5 text-[15px] font-extrabold ${ink}`}>
+            <Icon name="search" size={17} strokeWidth={2.75} />
             <span className={muted}>Search</span>
           </div>
         </GlassCard>

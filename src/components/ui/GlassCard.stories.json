@@ -161,12 +161,6 @@
           "control": "switch",
           "label": "Draggable",
           "default": true
-        },
-        {
-          "prop": "cursorLight",
-          "control": "switch",
-          "label": "Cursor light",
-          "default": true
         }
       ]
     }

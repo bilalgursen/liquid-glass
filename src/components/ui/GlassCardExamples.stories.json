@@ -61,12 +61,6 @@
           "max": 0.15,
           "step": 0.005,
           "default": 0.065
-        },
-        {
-          "prop": "cursorLight",
-          "control": "switch",
-          "label": "Cursor light",
-          "default": true
         }
       ]
     }
