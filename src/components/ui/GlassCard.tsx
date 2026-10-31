@@ -47,11 +47,30 @@ const rgba = (hex: string, alpha: number) => {
   return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${alpha})`
 }
 
-// SVG filters in backdrop-filter only render in Chromium; elsewhere the glass is frost only.
+// Phones and tablets: the displacement filter is re-rasterised on every frame anything moves
+// behind it, which stutters on mobile GPUs, so those devices get the still, frosted glass.
+const LOW_POWER_QUERY = '(pointer: coarse), (max-width: 767px)'
+
+/** True on touch devices and narrow screens (false during prerender). */
+export function useLowPowerDevice() {
+  const [low, setLow] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia(LOW_POWER_QUERY)
+    const update = () => setLow(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+  return low
+}
+
+// SVG filters in backdrop-filter only render in Chromium; elsewhere, and on low-power
+// devices, the glass is frost only.
 function useRefractionSupport() {
-  const [supported, setSupported] = useState(false)
-  useEffect(() => setSupported(/Chrome\//.test(navigator.userAgent)), [])
-  return supported
+  const [chromium, setChromium] = useState(false)
+  const lowPower = useLowPowerDevice()
+  useEffect(() => setChromium(/Chrome\//.test(navigator.userAgent)), [])
+  return chromium && !lowPower
 }
 
 function useWindowSize() {
@@ -258,8 +277,8 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
         background: `linear-gradient(${inward}, var(--edge), transparent)`,
         maskImage: `linear-gradient(${inward}, black 50%, transparent)`,
         WebkitMaskImage: `linear-gradient(${inward}, black 50%, transparent)`,
-        backdropFilter: `blur(${blur}px)`,
-        WebkitBackdropFilter: `blur(${blur}px)`,
+        backdropFilter: blur > 0 ? `blur(${blur}px)` : undefined,
+        WebkitBackdropFilter: blur > 0 ? `blur(${blur}px)` : undefined,
       }}
     />
   )
@@ -267,6 +286,8 @@ function ProgressiveBlur({ side, width = 150, blur = 4 }: { side: 'left' | 'righ
 
 // The visitor's live weather and a calendar card, over two looping rows of colour they can bend.
 export function GlassCardExamples({ theme = 'light', githubUser = 'bilalgursen', githubRepo = 'liquid-glass', ...glass }: GlassCardExamplesProps) {
+  // Phones get still rows and no edge blur: every moving pixel behind the glass costs a redraw.
+  const still = useLowPowerDevice()
   // A fixed 60% tint: white glass on the light page, black on the dark one.
   const settings = {
     ...glass,
@@ -283,7 +304,7 @@ export function GlassCardExamples({ theme = 'light', githubUser = 'bilalgursen',
         {[0, 1].map((row) => (
           <div
             key={row}
-            className="flex w-max animate-marquee whitespace-nowrap motion-reduce:animate-none"
+            className={`flex w-max whitespace-nowrap ${still ? '' : 'animate-marquee motion-reduce:animate-none'}`}
             style={{ animationDuration: `${36 + row * 8}s`, animationDirection: row % 2 ? 'reverse' : 'normal' }}
           >
             {[0, 1].map((half) => (
@@ -296,8 +317,8 @@ export function GlassCardExamples({ theme = 'light', githubUser = 'bilalgursen',
           </div>
         ))}
       </div>
-      <ProgressiveBlur side="left" />
-      <ProgressiveBlur side="right" />
+      <ProgressiveBlur side="left" blur={still ? 0 : 4} />
+      <ProgressiveBlur side="right" blur={still ? 0 : 4} />
 
       <div className="relative flex flex-wrap items-center justify-center gap-6 px-6">
         <GlassCard {...settings} shape="rounded" width={180} height={180} radius={28}>

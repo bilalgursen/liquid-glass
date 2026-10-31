@@ -123,6 +123,11 @@ export function UiKitGallery({
           <div className="md:col-span-full">
             <Card {...card('Glass cards', 'A weather card and a calendar card. The rims bend the colour sliding behind them.')} wide>
               <GlassCardExamples theme={current} />
+              <p className="text-[12px] leading-relaxed text-neutral-500">
+                The rim refraction is an SVG filter inside <code className="font-mono">backdrop-filter</code>, which only Chromium
+                composites: Safari, Firefox and every iOS browser show the frosted glass without the bend. Phones and tablets get
+                the still, frosted version too, since redrawing the filter on every frame stutters on mobile GPUs.
+              </p>
             </Card>
           </div>
         </div>

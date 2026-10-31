@@ -70,6 +70,24 @@ import { RangeSlider } from '#/components/ui/RangeSlider'
 - Pages prerender to static HTML; the renderer loads lazily on the client.
 
 
+## Browser support
+
+- **Controls (Button, Switch, Slider, …)** render through WebGL2 and work in
+  every current browser, including Safari and iOS.
+- **Glass cards** (`GlassCard`, the weather and calendar cards) bend the page
+  behind them with an SVG `feDisplacementMap` filter inside `backdrop-filter`.
+  Only Chromium (Chrome, Edge, Arc, Brave) composites SVG backdrop filters, so
+  Safari, Firefox and every iOS browser show the same frosted, tinted glass
+  without the rim refraction. The component detects this and falls back to a
+  plain `blur()` on its own.
+- **Mobile**: the displacement filter is re-rasterised on every frame the
+  pill rows slide behind the cards, which stutters on phone GPUs. On coarse
+  pointers and screens under 768px (`useLowPowerDevice` in `GlassCard.tsx`)
+  the cards therefore fall back to the plain frosted glass, the rows stand
+  still and the edge blur is dropped. The lens demo in "How the glass works"
+  still renders on request only unless you flip it to every frame.
+  `prefers-reduced-motion` stops the rows and snaps the springs everywhere.
+
 ## Stack
 
 TanStack Start · Vite · Tailwind CSS v4 · three.js · motion. pnpm only.
