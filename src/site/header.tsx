@@ -16,7 +16,7 @@ import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from '@/com
 import { CATALOG, FEATURED, PAGES, VERSION, minorOf } from '@/docs/content'
 import { cn } from '@/lib/utils'
 
-import { GitHubMark, Logo, Rivets, column } from './chrome'
+import { GitHubMark, Rivets, Wordmark, column } from './chrome'
 import { REPO_URL, SITE_ORIGIN, localeParam, type Locale } from './i18n'
 import { DocLink, exactActive } from './links'
 import { setTheme, useTheme } from './theme'
@@ -339,7 +339,7 @@ function MobileMenu({ locale }: { locale: Locale }) {
             <Rivets at={['bl', 'br']} />
             {close(
               <Link to="/{-$locale}" params={p} activeOptions={exactActive} aria-label="Liquid Glass UI" className="flex items-center text-foreground">
-                <Logo />
+                <Wordmark />
               </Link>,
             )}
             <div className="ml-auto flex items-center gap-2">
@@ -431,7 +431,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <Rivets at={['bl', 'br']} />
         <div className="flex shrink-0 items-center gap-3">
           <Link to="/{-$locale}" params={p} activeOptions={exactActive} aria-label="Liquid Glass UI" className="flex items-center text-foreground">
-            <Logo />
+            <Wordmark />
           </Link>
         </div>
         {/* w-max: centred from the middle, the dock would otherwise only get half the bar and

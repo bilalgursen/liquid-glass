@@ -44,3 +44,6 @@
 /tr/docs/glass-checkbox /tr/docs/checkbox 301
 /tr/docs/glass-checkbox.md /tr/docs/checkbox.md 301
 /r/glass-checkbox.json /r/checkbox.json 301
+# The brand page was removed in 2.0.5.
+/brand / 301
+/tr/brand /tr 301

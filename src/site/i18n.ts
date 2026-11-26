@@ -1,6 +1,6 @@
 // Locales and URLs. English lives at the root (/docs/…), Turkish under /tr (/tr/docs/…).
 // Plain TS (no React): also imported by vite.config.ts to list the pages to prerender.
-export const SITE_ORIGIN = 'https://onemorethink.dev'
+export const SITE_ORIGIN = 'https://liquidglass.onemorethink.dev'
 export const REPO_URL = 'https://github.com/bilalgursen/liquid-glass'
 
 export const LOCALES = ['en', 'tr'] as const

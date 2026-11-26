@@ -287,7 +287,7 @@ export function Hero() {
         type: 'code',
         title: 'prompt',
         code: `Add a glass "Deploy" button that shows Deploying… then Deployed ✓.
-Use Liquid Glass UI (https://onemorethink.dev/llms.txt):
+Use Liquid Glass UI (https://liquidglass.onemorethink.dev/llms.txt):
 install it with the shadcn CLI, use its GlassActionButton as documented,
 and do not modify the files in components/liquid-glass/.`,
       },
@@ -1859,6 +1859,31 @@ export type Release = {
 export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed']
 
 export const RELEASES: Release[] = [
+  {
+    version: '2.0.5',
+    date: '2026-11-27',
+    title: t('The site moved to liquidglass.onemorethink.dev.', 'Site liquidglass.onemorethink.dev adresine taşındı.'),
+    changes: [
+      {
+        kind: 'improved',
+        text: t(
+          'Docs, install commands, the registry and the llms files now use liquidglass.onemorethink.dev. The old onemorethink.dev addresses for the docs, the registry and the llms files redirect to the same page here; onemorethink.dev itself is now the OneMoreThink page.',
+          'Dokümanlar, kurulum komutları, registry ve llms dosyaları artık liquidglass.onemorethink.dev adresini kullanıyor. Dokümanların, registry\'nin ve llms dosyalarının eski onemorethink.dev adresleri buradaki aynı sayfaya yönleniyor; onemorethink.dev\'in kendisi artık OneMoreThink sayfası.',
+        ),
+      },
+      {
+        kind: 'improved',
+        text: t(
+          'The header carries the name as text, "Liquid" light and "Glass" heavy. The drawn logo stays in the footer.',
+          'Başlıkta ad artık yazıyla duruyor: "Liquid" ince, "Glass" kalın. Çizilmiş logo altbilgide kalıyor.',
+        ),
+      },
+      {
+        kind: 'removed',
+        text: t('The brand page is gone; its address redirects to the home page.', 'Marka sayfası kaldırıldı; adresi ana sayfaya yönleniyor.'),
+      },
+    ],
+  },
   {
     version: '2.0.4',
     date: '2026-11-25',

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://onemorethink.dev/sitemap.xml
+Sitemap: https://liquidglass.onemorethink.dev/sitemap.xml

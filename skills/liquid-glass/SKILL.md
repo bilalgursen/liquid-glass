@@ -5,7 +5,7 @@ description: Add liquid glass UI to a React app with Liquid Glass UI (bilalgurse
 
 # Liquid Glass UI
 
-Copy-paste React components drawn in WebGL2, one verb each. Docs: https://onemorethink.dev — every page also exists as Markdown (`/docs/<page>.md`), and `https://onemorethink.dev/llms-full.txt` holds everything.
+Copy-paste React components drawn in WebGL2, one verb each. Docs: https://liquidglass.onemorethink.dev — every page also exists as Markdown (`/docs/<page>.md`), and `https://liquidglass.onemorethink.dev/llms-full.txt` holds everything.
 
 ## Non-negotiable rules
 
@@ -36,7 +36,7 @@ Pick by the verb. They never overlap.
 | Grow | A full menu out of a button, on any side: checkable options, one choice among a few, groups, shortcuts, submenus | `GlassMenu` from `glass-menu` with `GlassMenuTrigger`, `GlassMenuContent` (`side`, `align`), `GlassMenuItem` (`onSelect`, `destructive`, `shortcut`), `GlassMenuCheckboxItem` (`value`, `checked`, `onCheckedChange`), `GlassMenuRadioGroup` + `GlassMenuRadioItem`, `GlassMenuGroup` + `GlassMenuLabel`, `GlassMenuShortcut`, `GlassMenuSeparator`, `GlassMenuSub` + `GlassMenuSubTrigger` + `GlassMenuSubContent`; needs `@ui-sdk/core` and `@ui-sdk/react` | `…/r/menu.json` |
 | — | All of them | — | `…/r/liquid-glass.json` |
 
-`…` = `npx shadcn@latest add https://onemorethink.dev`. Everything wraps your own DOM. `GlassButton`, `GlassTabs`, `GlassSelect`, `GlassDropdownMenu`, `GlassPopover`, `GlassMenu`, `RangeSlider`, `Switch` and `Checkbox` take their behaviour from UI SDK and need `@ui-sdk/core` and `@ui-sdk/react` (in beta: keep the exact versions the install adds); `RangeSlider`, `Switch` and `Checkbox` also need `three`. The rest have zero npm dependencies.
+`…` = `npx shadcn@latest add https://liquidglass.onemorethink.dev`. Everything wraps your own DOM. `GlassButton`, `GlassTabs`, `GlassSelect`, `GlassDropdownMenu`, `GlassPopover`, `GlassMenu`, `RangeSlider`, `Switch` and `Checkbox` take their behaviour from UI SDK and need `@ui-sdk/core` and `@ui-sdk/react` (in beta: keep the exact versions the install adds); `RangeSlider`, `Switch` and `Checkbox` also need `three`. The rest have zero npm dependencies.
 
 ## Essentials
 
@@ -75,4 +75,4 @@ import { GlassActionButton, GlassButton, GlassTabs } from '@/components/liquid-g
 ## Reference
 
 - `references/components.md` — every component page: live example source, props table.
-- Turkish docs: https://onemorethink.dev/tr/docs
+- Turkish docs: https://liquidglass.onemorethink.dev/tr/docs
