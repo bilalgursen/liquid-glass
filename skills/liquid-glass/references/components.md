@@ -52,7 +52,7 @@ export default function Demo() {
 - Every button of a dense form: keep the glass for the action that matters.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/button.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/button.json
 ```
 
 > The button underneath is UI SDK's, so Button needs `@ui-sdk/core` and `@ui-sdk/react`. Return a Promise from `onClick` and the button stays pending until it settles: it ignores further presses and says so to screen readers. The install command adds both packages at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -366,7 +366,7 @@ Two buttons that come near each other melt into one body, as two drops of liquid
 - The glass canvas is `aria-hidden`; only your label is announced.
 - Icon-only buttons need an `aria-label`.
 
-Source: https://onemorethink.dev/docs/button
+Source: https://liquidglass.onemorethink.dev/docs/button
 
 # GlassActionButton
 
@@ -423,7 +423,7 @@ export default function Demo() {
 - More than one per screen: the droplet is the kit's one gooey effect, keep it special.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/action-button.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/action-button.json
 ```
 
 ## Usage
@@ -519,7 +519,7 @@ With `resetAfter={2400}` the droplet splits off again 2.4 seconds after a succes
 - A `role="status"` region announces the pending and success labels.
 - With reduced motion the droplet and labels switch without animation.
 
-Source: https://onemorethink.dev/docs/action-button
+Source: https://liquidglass.onemorethink.dev/docs/action-button
 
 # GlassTabs
 
@@ -574,7 +574,7 @@ export default function Demo() {
 - Long lists of options: use a select.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/tabs.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/tabs.json
 ```
 
 > The behaviour (one tab stop, arrow keys, a hidden radio per option for forms) comes from UI SDK's segmented control, so Tabs needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -722,7 +722,7 @@ export default function Demo() {
 - Icon-only options take an `aria-label` each.
 - With reduced motion the pill simply jumps.
 
-Source: https://onemorethink.dev/docs/tabs
+Source: https://liquidglass.onemorethink.dev/docs/tabs
 
 # GlassBadge
 
@@ -761,7 +761,7 @@ export default function Demo() {
 - Several on one screen: the motion competes.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/badge.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/badge.json
 ```
 
 ## Usage
@@ -1007,7 +1007,7 @@ Without a position class the badge sits in the line like any inline element. Giv
 - The text is announced once, not as a loop.
 - With reduced motion the text stands still, centred.
 
-Source: https://onemorethink.dev/docs/badge
+Source: https://liquidglass.onemorethink.dev/docs/badge
 
 # GlassSlideToConfirm
 
@@ -1085,7 +1085,7 @@ export default function Demo() {
 - Consequences people must read first: use a dialog.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/slide-to-confirm.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/slide-to-confirm.json
 ```
 
 ## Usage
@@ -1164,7 +1164,7 @@ Colour the fill with `fillClassName`: its `bg-*` is the fill, its `text-*` is th
 - Success is never colour alone: the chevron becomes a check and the label is written beside it.
 - Vertical page scroll still works over the control on touch. With reduced motion each state shows at once.
 
-Source: https://onemorethink.dev/docs/slide-to-confirm
+Source: https://liquidglass.onemorethink.dev/docs/slide-to-confirm
 
 # GlassCard
 
@@ -1287,7 +1287,7 @@ export default function Demo() {
 - One clickable action: use GlassButton.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/card.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/card.json
 ```
 
 ## Usage
@@ -1436,7 +1436,7 @@ The rim pulls what is behind towards the card's centre, by 6.5% of the viewport,
 - The glass canvas is `aria-hidden`; only your content is read.
 - Content that moves behind it should respect reduced motion: the rows above stop.
 
-Source: https://onemorethink.dev/docs/card
+Source: https://liquidglass.onemorethink.dev/docs/card
 
 # RangeSlider
 
@@ -1467,7 +1467,7 @@ export default function Demo() {
 - Confirming one action: that is Slide to Confirm.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/slider.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/slider.json
 ```
 
 > Slider, Switch and Checkbox are drawn by their own renderer, which needs `three`, and take their behaviour (keyboard, the label, the input a form reads) from UI SDK: `@ui-sdk/core` and `@ui-sdk/react`. The install command adds all three; UI SDK is in beta, so it is added at the exact version this was built on.
@@ -1532,7 +1532,7 @@ export default function Demo() {
 - The `label` names the input.
 - With reduced motion the glass follows without springs.
 
-Source: https://onemorethink.dev/docs/slider
+Source: https://liquidglass.onemorethink.dev/docs/slider
 
 # Switch
 
@@ -1559,7 +1559,7 @@ export default function Demo() {
 - More than two states: use Tabs.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/switch.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/switch.json
 ```
 
 ## Usage
@@ -1619,7 +1619,7 @@ export default function Demo() {
 - The `label` is a real `<label>` tied to the button.
 - With reduced motion the knob simply jumps.
 
-Source: https://onemorethink.dev/docs/switch
+Source: https://liquidglass.onemorethink.dev/docs/switch
 
 # Checkbox
 
@@ -1652,7 +1652,7 @@ export default function Demo() {
 - One choice out of several: use Tabs.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/checkbox.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/checkbox.json
 ```
 
 ## Usage
@@ -1711,7 +1711,7 @@ export default function Demo() {
 - The `label` is a real `<label>` tied to the button.
 - With reduced motion the mark and the cap change without springs.
 
-Source: https://onemorethink.dev/docs/checkbox
+Source: https://liquidglass.onemorethink.dev/docs/checkbox
 
 # GlassSelect
 
@@ -1773,7 +1773,7 @@ export default function Demo() {
 - Several of these on one screen: one stretching list is a moment, a form full of them is noise.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/select.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/select.json
 ```
 
 > The behaviour (keyboard, typeahead, focus, positioning, ARIA) comes from UI SDK, so Select needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -1849,7 +1849,7 @@ const popup = useGlassPopup()
 - With reduced motion the list opens and closes at once, with no stretch or jolt.
 - Without WebGL2 it is a plain frosted list.
 
-Source: https://onemorethink.dev/docs/select
+Source: https://liquidglass.onemorethink.dev/docs/select
 
 # GlassButtonGroup
 
@@ -1958,7 +1958,7 @@ export default function Demo() {
 - Unrelated actions: one body says they belong together.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/button-group.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/button-group.json
 ```
 
 ## Usage
@@ -2114,7 +2114,7 @@ export default function Demo() {
 - Icon-only items need an `aria-label`. Separators are `role="separator"`.
 - Without WebGL2 it keeps its plain CSS colour.
 
-Source: https://onemorethink.dev/docs/button-group
+Source: https://liquidglass.onemorethink.dev/docs/button-group
 
 # GlassDropdownMenu
 
@@ -2197,7 +2197,7 @@ export default function Demo() {
 - Several of these on one screen: one stretching list is a moment, many are noise.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/dropdown-menu.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/dropdown-menu.json
 ```
 
 > The behaviour (keyboard, typeahead, focus, positioning, ARIA) comes from UI SDK, so Dropdown Menu needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -2434,7 +2434,7 @@ export default function Demo() {
 - An icon-only trigger needs an `aria-label`.
 - With reduced motion the list opens and closes at once. Without WebGL2 it is a plain frosted list.
 
-Source: https://onemorethink.dev/docs/dropdown-menu
+Source: https://liquidglass.onemorethink.dev/docs/dropdown-menu
 
 # GlassPopover
 
@@ -2511,7 +2511,7 @@ export default function Demo() {
 - A hint shown on hover: the button is hidden while the popover is out, so it must be pressed.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/popover.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/popover.json
 ```
 
 > The behaviour (the top layer, positioning, focus, Escape, the outside press, ARIA) comes from UI SDK, so Popover needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -2587,7 +2587,7 @@ const popup = useGlassPopup({ opening: 'morph' })
 - An icon-only button needs an `aria-label`.
 - With reduced motion the popover opens and closes at once. Without WebGL2 it is a plain frosted panel.
 
-Source: https://onemorethink.dev/docs/popover
+Source: https://liquidglass.onemorethink.dev/docs/popover
 
 # GlassMenu
 
@@ -2684,7 +2684,7 @@ export default function Demo() {
 - A short form or a note about one control: use Popover.
 
 ```bash
-npx shadcn@latest add https://onemorethink.dev/r/menu.json
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/menu.json
 ```
 
 > The behaviour (keyboard, typeahead, focus, submenus, positioning, ARIA) comes from UI SDK, so Menu needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
@@ -3020,4 +3020,4 @@ Menu is built on `GlassPopup`: `useGlassPopup({ opening: 'grow' })` gives any co
 - An icon-only button needs an `aria-label`.
 - With reduced motion the menu opens and closes at once. Without WebGL2 it is a plain frosted list.
 
-Source: https://onemorethink.dev/docs/menu
+Source: https://liquidglass.onemorethink.dev/docs/menu

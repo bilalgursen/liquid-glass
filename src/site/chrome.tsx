@@ -52,6 +52,18 @@ export const LOGO_MARK = [
   'M109.132 139.489C111.321 139.056 113.568 138.308 115.852 138.775C126.611 140.981 125.816 158.509 123.588 166.468C122.116 171.721 119.608 176.597 116.378 180.978C109.282 190.619 99.7088 195.64 89.5894 201.354C87.178 209.724 91.4348 219.561 101.104 220.505C105.536 220.938 110.111 219.823 113.345 216.598C116.572 213.383 118.433 208.53 120.614 204.579C124.744 197.099 128.942 189.656 133.009 182.14C137.242 174.316 141.631 166.566 145.928 158.778C152.986 145.994 161.622 134.04 149.819 120.868C145.775 116.354 138.998 114 133.011 114.549C123.615 115.416 118.914 121.619 114.517 129.255C112.596 132.592 110.569 136.015 109.132 139.489Z',
 ]
 
+/** The name as it is written in the header: "liquid" light, "glass" heavy, one word's worth
+ *  of space between them and none added. Geist, lowercase, in the text colour. The drawn
+ *  logo (below) is for the footer. */
+export function Wordmark({ className = '' }: { className?: string }) {
+  return (
+    <span className={`text-[1.3125rem] leading-none tracking-[-0.03em] ${className}`}>
+      <span className="font-light">liquid</span>
+      <span className="font-semibold">glass</span>
+    </span>
+  )
+}
+
 /** The logo. It takes the text colour, so it follows the theme. */
 export function Logo({ className = 'h-10 w-auto', style }: { className?: string; style?: CSSProperties }) {
   return (
@@ -203,9 +215,6 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <p className={head}>{t.docs.resources}</p>
           <Link to="/{-$locale}/changelog" params={p} activeOptions={exactActive} className={link}>
             {t.changelog.title}
-          </Link>
-          <Link to="/{-$locale}/brand" params={p} activeOptions={exactActive} className={link}>
-            {t.brand.title}
           </Link>
           <a href={`${SITE_ORIGIN}/llms.txt`} className={link}>
             llms.txt

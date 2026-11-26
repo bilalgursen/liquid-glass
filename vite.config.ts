@@ -9,7 +9,7 @@ import { PAGES } from './src/docs/content'
 import { LOCALES, SITE_ORIGIN, localizedPath } from './src/site/i18n'
 
 /** Every public page, in both languages. The single list the prerenderer and sitemap use. */
-const paths = LOCALES.flatMap((l) => ['/', '/docs', '/changelog', '/brand', ...PAGES.filter((p) => p.slug !== 'introduction').map((p) => `/docs/${p.slug}`)].map((p) => localizedPath(p, l)))
+const paths = LOCALES.flatMap((l) => ['/', '/docs', '/changelog', ...PAGES.filter((p) => p.slug !== 'introduction').map((p) => `/docs/${p.slug}`)].map((p) => localizedPath(p, l)))
 
 /** llms.txt, per-page Markdown, the shadcn registry and the skill reference (scripts/ai-files.ts). */
 const aiFiles = (): Plugin => ({
