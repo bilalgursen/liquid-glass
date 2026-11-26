@@ -1874,8 +1874,8 @@ export const RELEASES: Release[] = [
       {
         kind: 'improved',
         text: t(
-          'The header carries the name as text, "liquid" light and "glass" heavy. The drawn logo stays in the footer.',
-          'Başlıkta ad artık yazıyla duruyor: "liquid" ince, "glass" kalın. Çizilmiş logo altbilgide kalıyor.',
+          'The header carries the name as text, "Liquid" light and "Glass" heavy. The drawn logo stays in the footer.',
+          'Başlıkta ad artık yazıyla duruyor: "Liquid" ince, "Glass" kalın. Çizilmiş logo altbilgide kalıyor.',
         ),
       },
       {
