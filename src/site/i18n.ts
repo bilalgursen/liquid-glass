@@ -44,6 +44,14 @@ export function localizedPath(path: string, locale: Locale): string {
   return locale === DEFAULT_LOCALE ? clean || '/' : `/${locale}${clean}`
 }
 
+/** og:url and og:locale of one locale-less path; the rest of the share card is set once in __root. */
+export function shareMeta(path: string, locale: Locale) {
+  return [
+    { property: 'og:url', content: SITE_ORIGIN + localizedPath(path, locale) },
+    { property: 'og:locale', content: locale === 'tr' ? 'tr_TR' : 'en_US' },
+  ]
+}
+
 /** canonical + hreflang alternates for one locale-less path. */
 export function alternateLinks(path: string, locale: Locale) {
   return [

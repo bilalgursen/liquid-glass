@@ -1860,6 +1860,20 @@ export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed'
 
 export const RELEASES: Release[] = [
   {
+    version: '2.0.6',
+    date: '2026-11-28',
+    title: t('Search engines find the site at its new address.', 'Arama motorları siteyi yeni adresinde buluyor.'),
+    changes: [
+      {
+        kind: 'improved',
+        text: t(
+          'Every page says which address it lives at when it is shared, and the home page tells search engines the name of the site, the code it documents and who publishes it.',
+          'Her sayfa paylaşıldığında hangi adreste durduğunu söylüyor; ana sayfa da arama motorlarına sitenin adını, anlattığı kodu ve yayıncısını bildiriyor.',
+        ),
+      },
+    ],
+  },
+  {
     version: '2.0.5',
     date: '2026-11-27',
     title: t('The site moved to liquidglass.onemorethink.dev.', 'Site liquidglass.onemorethink.dev adresine taşındı.'),

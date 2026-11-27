@@ -12,6 +12,9 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { title: 'Liquid Glass UI' },
+      { property: 'og:site_name', content: 'Liquid Glass UI' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary' },
     ],
     links: [
       { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },

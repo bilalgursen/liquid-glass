@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 import { GitHubMark, Inline, Stage, column } from './chrome'
 import { CodeBlock, InstallCommand } from './code'
 import { ComponentGrid } from './component-grid'
-import { REPO_URL, SITE_ORIGIN, alternateLinks, localeFromParam, localeParam, localizedPath, type L, type Locale } from './i18n'
+import { REPO_URL, SITE_ORIGIN, alternateLinks, localeFromParam, localeParam, localizedPath, shareMeta, type L, type Locale } from './i18n'
 import { DocLink, exactActive } from './links'
 import { BadgePill, ComponentNews, WhatsNewCard } from './release'
 import { UI } from './ui'
@@ -27,6 +27,7 @@ export function docHead(page: DocPage, param: string | undefined, path: string) 
       { name: 'description', content: page.description[locale] },
       { property: 'og:title', content: title },
       { property: 'og:description', content: page.description[locale] },
+      ...shareMeta(path, locale),
     ],
     links: [...alternateLinks(path, locale), { rel: 'alternate', type: 'text/markdown', href: `${SITE_ORIGIN}${markdownPath(page, locale)}` }],
   }

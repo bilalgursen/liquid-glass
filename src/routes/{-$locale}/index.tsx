@@ -6,7 +6,7 @@ import { Button } from '#/components/ui/button'
 import { FrameSection, GitHubMark, column } from '#/site/chrome'
 import { CodeBlock, InstallCommand } from '#/site/code'
 import { ComponentGrid } from '#/site/component-grid'
-import { ENTERED_KEY, REPO_URL, alternateLinks, localeFromParam, localeParam } from '#/site/i18n'
+import { ENTERED_KEY, REPO_URL, SITE_ORIGIN, alternateLinks, localeFromParam, localeParam, shareMeta } from '#/site/i18n'
 import { UI } from '#/site/ui'
 
 export const Route = createFileRoute('/{-$locale}/')({
@@ -16,14 +16,38 @@ export const Route = createFileRoute('/{-$locale}/')({
     return {
       meta: [
         { title: locale === 'tr' ? 'Liquid Glass UI — React için cam bileşenleri' : 'Liquid Glass UI — glass components for React' },
-        { name: 'description', content: t.subtitle },
+        { name: 'description', content: t.search },
         { property: 'og:title', content: 'Liquid Glass UI' },
-        { property: 'og:description', content: t.subtitle },
+        { property: 'og:description', content: t.search },
+        ...shareMeta('/', locale),
+        { 'script:ld+json': siteData(t.search) },
       ],
       links: alternateLinks('/', locale),
     }
   },
   component: Home,
+})
+
+// What search engines read about the site: its name (the one shown above a result), the
+// code it documents, and OneMoreThink as the publisher, which has its own page and entry.
+const PUBLISHER = 'https://onemorethink.dev/#organization'
+const siteData = (description: string) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${SITE_ORIGIN}/#website`, url: `${SITE_ORIGIN}/`, name: 'Liquid Glass UI', alternateName: ['Liquid Glass', 'LiquidGlass'], inLanguage: ['en', 'tr'], publisher: { '@id': PUBLISHER } },
+    { '@type': 'Organization', '@id': PUBLISHER, name: 'OneMoreThink', url: 'https://onemorethink.dev/' },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'Liquid Glass UI',
+      description,
+      url: `${SITE_ORIGIN}/`,
+      codeRepository: REPO_URL,
+      programmingLanguage: 'TypeScript',
+      runtimePlatform: 'React',
+      license: 'https://opensource.org/licenses/MIT',
+      publisher: { '@id': PUBLISHER },
+    },
+  ],
 })
 
 const USAGE = `import { GlassButton, GlassTabs } from '@/components/liquid-glass'
