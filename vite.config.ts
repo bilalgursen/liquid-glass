@@ -42,6 +42,12 @@ export default defineConfig({
       prerender: {
         enabled: true,
         crawlLinks: true,
+        // /docs/button is written as docs/button.html, not docs/button/index.html: Cloudflare
+        // Pages then serves the address the canonical link, the sitemap and the old domain's
+        // redirects all name, instead of sending it on to /docs/button/. It also puts the 404
+        // pages at /404.html and /tr/404.html, which is where Pages looks for them; without a
+        // 404.html it answers every unknown address with the home page and a 200.
+        autoSubfolderIndex: false,
         failOnError: true,
         filter: (page) => !page.path.includes('#') && !page.path.includes('?') && !page.path.endsWith('.md') && !page.path.endsWith('.txt') && !page.path.endsWith('.json'),
       },

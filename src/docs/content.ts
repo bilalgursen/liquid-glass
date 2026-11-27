@@ -1860,6 +1860,27 @@ export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed'
 
 export const RELEASES: Release[] = [
   {
+    version: '2.0.7',
+    date: '2026-11-28',
+    title: t('Every page opens at its own address, with no redirect on the way.', 'Her sayfa kendi adresinde açılıyor, yolda yönlendirme yok.'),
+    changes: [
+      {
+        kind: 'fixed',
+        text: t(
+          'A page such as /docs/button used to send the browser on to /docs/button/ before it opened. It now opens where it is, so an old onemorethink.dev link arrives in one step instead of two.',
+          '/docs/button gibi bir sayfa açılmadan önce tarayıcıyı /docs/button/ adresine gönderiyordu. Artık olduğu yerde açılıyor; eski bir onemorethink.dev bağlantısı iki adım yerine tek adımda varıyor.',
+        ),
+      },
+      {
+        kind: 'fixed',
+        text: t(
+          'An address that does not exist showed the home page. It now shows the "Page not found" page.',
+          'Var olmayan bir adres ana sayfayı gösteriyordu. Artık "Sayfa bulunamadı" sayfasını gösteriyor.',
+        ),
+      },
+    ],
+  },
+  {
     version: '2.0.6',
     date: '2026-11-28',
     title: t('Search engines find the site at its new address.', 'Arama motorları siteyi yeni adresinde buluyor.'),
