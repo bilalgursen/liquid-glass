@@ -47,3 +47,6 @@
 # The brand page was removed in 2.0.5.
 /brand / 301
 /tr/brand /tr 301
+# The introduction lives at /docs itself; its Markdown is /docs/introduction.md.
+/docs/introduction /docs 301
+/tr/docs/introduction /tr/docs 301
