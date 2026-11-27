@@ -1860,6 +1860,20 @@ export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed'
 
 export const RELEASES: Release[] = [
   {
+    version: '2.0.8',
+    date: '2026-11-28',
+    title: t('The sitemap lists the pages, and only the pages.', 'Site haritası sayfaları, yalnızca sayfaları listeliyor.'),
+    changes: [
+      {
+        kind: 'fixed',
+        text: t(
+          'The sitemap also listed the anchors and filters of the changelog and the Markdown files, which search engines read as copies of the same page. It now holds one address per page.',
+          'Site haritası sürüm notlarının çapalarını ve filtrelerini, bir de Markdown dosyalarını listeliyordu; arama motorları bunları aynı sayfanın kopyası olarak okuyordu. Artık her sayfa için tek adres var.',
+        ),
+      },
+    ],
+  },
+  {
     version: '2.0.7',
     date: '2026-11-28',
     title: t('Every page opens at its own address, with no redirect on the way.', 'Her sayfa kendi adresinde açılıyor, yolda yönlendirme yok.'),

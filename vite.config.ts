@@ -41,7 +41,10 @@ export default defineConfig({
       ],
       prerender: {
         enabled: true,
-        crawlLinks: true,
+        // `pages` above is the whole site. Following links added nothing to render, but every
+        // link it met went into the sitemap: the changelog's #v… anchors and ?c= filters and
+        // the .md files, 140 of its 178 addresses.
+        crawlLinks: false,
         // /docs/button is written as docs/button.html, not docs/button/index.html: Cloudflare
         // Pages then serves the address the canonical link, the sitemap and the old domain's
         // redirects all name, instead of sending it on to /docs/button/. It also puts the 404
