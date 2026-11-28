@@ -3021,3 +3021,201 @@ Menu is built on `GlassPopup`: `useGlassPopup({ opening: 'grow' })` gives any co
 - With reduced motion the menu opens and closes at once. Without WebGL2 it is a plain frosted list.
 
 Source: https://liquidglass.onemorethink.dev/docs/menu
+
+# GlassSearch
+
+> A search field that looks in several layers at once. Left empty, it lets its layers bud off its end as droplets; typed in, they melt back and the field grows down into its results.
+
+```tsx
+import { Folder, LayoutGrid, Users, Zap } from 'lucide-react'
+import { useState } from 'react'
+
+import { GlassSearch, type GlassSearchLayer } from '@/components/liquid-glass/glass-search'
+
+const files = ['Launch notes.md', 'Lens study.fig', 'Navigation map.pdf', 'Pricing draft.md', 'Roadmap 2027.md', 'Sound pack.zip']
+
+const layers: GlassSearchLayer[] = [
+  {
+    value: 'apps',
+    label: 'Apps',
+    icon: <LayoutGrid />,
+    items: [
+      { value: 'calendar', label: 'Calendar' },
+      { value: 'mail', label: 'Mail' },
+      { value: 'maps', label: 'Maps' },
+      { value: 'music', label: 'Music' },
+      { value: 'notes', label: 'Notes' },
+      { value: 'photos', label: 'Photos' },
+    ],
+  },
+  {
+    value: 'files',
+    label: 'Files',
+    icon: <Folder />,
+    // A layer that takes a while: it answers half a second later, and its results join the list then.
+    search: (query, signal) =>
+      new Promise((resolve) => {
+        const id = setTimeout(() => resolve(files.filter((name) => name.toLowerCase().includes(query.toLowerCase())).map((name) => ({ value: name, label: name, description: 'Documents' }))), 500)
+        signal.addEventListener('abort', () => clearTimeout(id))
+      }),
+  },
+  {
+    value: 'people',
+    label: 'People',
+    icon: <Users />,
+    items: [
+      { value: 'lena', label: 'Lena Marsh', description: 'Design' },
+      { value: 'malik', label: 'Malik Noor', description: 'Engineering' },
+      { value: 'nora', label: 'Nora Lind', description: 'Sales' },
+      { value: 'paul', label: 'Paul Meyer', description: 'Support' },
+    ],
+  },
+  {
+    value: 'actions',
+    label: 'Actions',
+    icon: <Zap />,
+    items: [
+      { value: 'new-note', label: 'New note', keywords: ['create', 'write'] },
+      { value: 'mute', label: 'Mute notifications', keywords: ['silence', 'quiet'] },
+      { value: 'lock', label: 'Lock screen' },
+      { value: 'night', label: 'Night mode', keywords: ['dark'] },
+    ],
+  },
+]
+
+const COLS = 13
+const ROWS = 7
+
+/** 1 around the middle of the grid, falling to 0 at its edge. */
+const fade = (col: number, row: number) => {
+  const distance = Math.hypot((col - (COLS - 1) / 2) / (COLS / 2), (row - (ROWS - 1) / 2) / (ROWS / 2))
+  return Math.min(1, Math.max(0, (1 - distance) / 0.45))
+}
+
+// Click the field and wait: its layers bud off the end as droplets. Type "n" and they melt back
+// in, the best match completes the text and the field grows down into the results; the Files
+// layer answers a moment later and the chips line up. Press a droplet or a chip to look in one
+// layer alone; choose a result and the field empties.
+// Behind it, only the Press demo's fine grid on the page's own colour, centred on the field:
+// plain DOM, every cell draws its own top and left line, fainter towards the edge.
+export default function Demo() {
+  const [opened, setOpened] = useState<string | null>(null)
+  return (
+    <div className="relative isolate flex h-[30rem] w-full max-w-xl items-center justify-center">
+      <div aria-hidden className="absolute top-1/2 left-1/2 -z-10 grid -translate-x-1/2 -translate-y-1/2 grid-cols-[repeat(13,40px)]">
+        {Array.from({ length: COLS * ROWS }, (_, i) => (
+          <span key={i} className="relative size-10" style={{ opacity: fade(i % COLS, Math.floor(i / COLS)) }}>
+            <span className="absolute inset-x-0 top-0 h-px bg-black/10 dark:bg-white/10" />
+            <span className="absolute inset-y-0 left-0 w-px bg-black/10 dark:bg-white/10" />
+          </span>
+        ))}
+      </div>
+      {/* Three results at once: the list stays inside the example. */}
+      <GlassSearch label="Search" placeholder={opened ? `Opened ${opened}. Search again` : 'Search'} layers={layers} limit={3} className="w-full max-w-md" onAction={(item) => setOpened(item.label)} />
+    </div>
+  )
+}
+```
+
+**Use it for**
+
+- Finding one thing among several kinds of things from a single field: apps, files, people, actions.
+- A command palette that lives on the page instead of in a dialog.
+- Sources that answer at different speeds: each layer joins the list when it is ready.
+
+**Not for**
+
+- Picking a value for a form: use Select.
+- A handful of known actions: use Menu or Dropdown Menu.
+- Filtering one list of one kind of thing: a plain input does it. The layers are the point here.
+
+```bash
+npx shadcn@latest add https://liquidglass.onemorethink.dev/r/search.json
+```
+
+> The behaviour (the list, the highlight and arrow keys, Enter, the announcements, ARIA) comes from UI SDK's Command, so Search needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.
+
+## Usage
+
+```tsx
+import { GlassSearch } from '@/components/liquid-glass/glass-search'
+
+<GlassSearch
+  label="Search"
+  placeholder="Search"
+  className="w-full max-w-md"
+  onAction={(item, layer) => open(layer.value, item.value)}
+  layers={[
+    {
+      value: 'apps',
+      label: 'Apps',
+      icon: <LayoutGrid />,
+      items: [
+        { value: 'notes', label: 'Notes' },
+        { value: 'maps', label: 'Maps' },
+      ],
+    },
+    {
+      value: 'people',
+      label: 'People',
+      icon: <Users />,
+      items: [{ value: 'lena', label: 'Lena Marsh', description: 'Design' }],
+    },
+  ]}
+/>
+```
+
+Left empty under focus or the pointer for two seconds, the field pulls its end back and its layers come out of it as one string of droplets: small at first, growing as they spread, the nearest pinching off where it belongs, then each of the others letting go of the next. Their icons ride with them and, in order, fade up, grow from their centre and clear out of a blur as they land. Type, and the droplets melt back in one quick motion, the best match completes what you typed, and the field grows down into its results; empty it and the glass shuts over them from below, softly, on a spring with some weight. It is one body of glass from start to end, shaded for the height it has at rest, with a hairline of dark on its very edge. Its face is frosted and takes only a little of the kit's light; its rim keeps the light, which leans towards the pointer as it moves around the field, and its shadow is Card's. The glass is clear, so it needs something behind it to bend.
+
+## Layers
+
+A layer is a kind of thing to look in. Give it `items` when you have them up front: typing ranks them (the start of the label first, then the start of a word, then anywhere, then `keywords`), without case or accents. Give it `search` when the answer takes a while: it is called with what was typed and aborted when that changes, and what it resolves with joins the list when it arrives. Layers that answered line up as chips above the results. Press a droplet or a chip and the field looks in that layer alone; it shows in the field, and Backspace in the empty field lets it go. Up to four layers bud off as droplets, as many as leave the field at least 120px to type in; any others show only as chips.
+
+```tsx
+const layers: GlassSearchLayer[] = [
+  // Known up front: ranked as you type.
+  { value: 'apps', label: 'Apps', icon: <LayoutGrid />, items: apps },
+  // Takes a while: joins the list when it resolves.
+  {
+    value: 'files',
+    label: 'Files',
+    icon: <Folder />,
+    search: async (query, signal) => {
+      const response = await fetch(`/api/files?q=${encodeURIComponent(query)}`, { signal })
+      return response.json()
+    },
+  },
+]
+```
+
+## API reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `layers` | `GlassSearchLayer[]` | — | What the field looks in, in order: `{ value, label, icon, items?, search? }`. |
+| `layers[].items` | `{ value: string; label: string; description?: string; icon?: ReactNode; keywords?: string[]; disabled?: boolean }[]` | — | Results known up front. Typing ranks them. |
+| `layers[].search` | `(query: string, signal: AbortSignal) => Promise<GlassSearchItem[]>` | — | Results that take a while. Aborted when the text changes; what it resolves with is ranked, not filtered again. |
+| `label` | `string` | — | The field's accessible name. |
+| `placeholder` | `string` | — | Shown while the field is empty. One too long for the field flows through it without end, as a marquee does. |
+| `onAction` | `(item, layer) => unknown` | — | Called when a result is chosen (Enter or a press). Return a promise and the result stays pending until it settles; then the field empties. |
+| `onQueryChange` | `(query: string) => void` | — | Called with the text as it changes. |
+| `defaultLayer` | `string \| null` | `null` | The layer the field looks in alone at first. `null` = every layer. |
+| `onLayerChange` | `(layer: string \| null) => void` | — | Called when one layer is chosen or let go. |
+| `layersAfter` | `number` | `2000` | How long the empty field waits, under focus or the pointer, before its layers bud off (ms). |
+| `arrive` | `boolean` | `false` | Play the field's arrival when it mounts: it comes in a little large, out of a blur. For a field that is summoned, in a dialog or on a shortcut. |
+| `empty` | `ReactNode` | `'No results'` | Shown when nothing matches. Write it in the page's language. |
+| `limit` | `number` | `50` | The most results listed at once. |
+| `material` | `'clear' \| 'tinted'` | `'clear'` | Clear glass frosts and bends what is behind; tinted takes the colour of your own `bg-*` class. |
+| `tint` | `number` | `0.74` | Clear glass: how much tint covers the backdrop (0–1). |
+| `blur` | `number` | `3.5` | Clear glass: how much the backdrop is frosted, in px. |
+| `className` | `string` | — | Sizes the field; it is 20rem wide by default and always 48px tall at rest. |
+
+## Accessibility
+
+- A `combobox` text field that controls a `listbox` (UI SDK's Command): focus stays in the field while the arrow keys move the highlight, and result counts are announced after typing pauses.
+- Enter runs the highlighted result. Tab or the right arrow at the end of the text takes the completion. Escape empties the field, then lets the chosen layer go; Backspace in the empty field does the same.
+- Droplets and chips are buttons named by their layer's `label`. The droplets leave the tab order while they are melted in.
+- With reduced motion the droplets and the results appear at once, with no budding or growth.
+- Without WebGL2 it is a plain frosted field with round buttons at its end.
+
+Source: https://liquidglass.onemorethink.dev/docs/search
