@@ -536,6 +536,8 @@ export function GlassSearch({
             <div ref={room2} className="relative h-full min-w-0 flex-1">
               <CommandInput
                 aria-label={label}
+                // Command is an inline list, open at all times to itself: the field says what the glass shows.
+                render={<input aria-expanded={open} />}
                 placeholder={placeholder}
                 onKeyDown={onKeyDown}
                 autoComplete="off"

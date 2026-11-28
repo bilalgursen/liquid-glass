@@ -2000,6 +2000,21 @@ export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed'
 
 export const RELEASES: Release[] = [
   {
+    version: '2.1.2',
+    date: '2026-11-28',
+    title: t('Search: the field says when its results are closed.', 'Search: alan, sonuçları kapalıyken bunu söylüyor.'),
+    changes: [
+      {
+        kind: 'fixed',
+        page: 'search',
+        text: t(
+          'The field told screen readers its results were open at all times (`aria-expanded="true"`), also when it was empty or after Escape had emptied it. It now follows the glass: `true` while the results show, `false` when the field has closed over them.',
+          'Alan, ekran okuyuculara sonuçlarının her zaman açık olduğunu söylüyordu (`aria-expanded="true"`); boşken de, Escape alanı boşalttıktan sonra da. Artık camı izliyor: sonuçlar görünürken `true`, alan üzerlerine kapanınca `false`.',
+        ),
+      },
+    ],
+  },
+  {
     version: '2.1.1',
     date: '2026-11-28',
     title: t('Search: an example with other things to find.', 'Search: bulunacak başka şeylerle bir örnek.'),
