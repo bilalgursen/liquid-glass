@@ -136,6 +136,13 @@ export const REGISTRY: RegistryItem[] = [
     entries: [liquid('glass-menu.tsx')],
     dependencies: ['@ui-sdk/core'],
   },
+  {
+    name: 'search',
+    title: 'GlassSearch',
+    description: 'Find: a search field that looks in several layers at once, lets them bud off its end as droplets when it is left empty, and grows down into its results. Needs @ui-sdk/core and @ui-sdk/react.',
+    entries: [liquid('glass-search.tsx')],
+    dependencies: ['@ui-sdk/core'],
+  },
 ]
 
 // ── Pages ───────────────────────────────────────────────────────────────────
@@ -1825,6 +1832,139 @@ const popup = useGlassPopup({ opening: 'morph' })
       },
     ],
   },
+  {
+    slug: 'search',
+    group: 'components',
+    title: t('Search', 'Search'),
+    name: 'GlassSearch',
+    description: t(
+      'A search field that looks in several layers at once. Left empty, it lets its layers bud off its end as droplets; typed in, they melt back and the field grows down into its results.',
+      'Aynı anda birkaç katmanda arayan arama alanı. Boş bırakılınca katmanlarını ucundan damla damla salar; yazınca damlalar geri erir ve alan aşağı doğru sonuçlarına büyür.',
+    ),
+    verb: t('Find', 'Bul'),
+    signature: t('One field, several layers: they bud off as droplets when you wait, and answer together when you type.', 'Tek alan, birkaç katman: bekleyince damla damla ayrılırlar, yazınca birlikte cevap verirler.'),
+    hero: 'glass-search-basic',
+    blocks: [
+      {
+        type: 'when',
+        use: [
+          t('Finding one thing among several kinds of things from a single field: apps, files, people, actions.', 'Tek bir alandan birkaç türün içinde tek bir şeyi bulmak: uygulamalar, dosyalar, kişiler, eylemler.'),
+          t('A command palette that lives on the page instead of in a dialog.', 'Bir pencerede değil, sayfanın üstünde duran bir komut paleti.'),
+          t('Sources that answer at different speeds: each layer joins the list when it is ready.', 'Farklı hızlarda cevap veren kaynaklar: her katman hazır olduğunda listeye katılır.'),
+        ],
+        avoid: [
+          t('Picking a value for a form: use Select.', 'Bir form için değer seçmek: Select kullan.'),
+          t('A handful of known actions: use Menu or Dropdown Menu.', 'Bilinen birkaç eylem: Menu ya da Dropdown Menu kullan.'),
+          t('Filtering one list of one kind of thing: a plain input does it. The layers are the point here.', 'Tek türden tek bir listeyi süzmek: düz bir giriş alanı yeter. Buradaki mesele katmanlar.'),
+        ],
+      },
+      { type: 'install', item: 'search' },
+      {
+        type: 'note',
+        text: t(
+          'The behaviour (the list, the highlight and arrow keys, Enter, the announcements, ARIA) comes from UI SDK\'s Command, so Search needs `@ui-sdk/core` and `@ui-sdk/react`. The install command adds them at the exact version this was built on: UI SDK is in beta and its API may still change.',
+          'Davranış (liste, vurgu ve ok tuşları, Enter, duyurular, ARIA) UI SDK\'nın Command\'ından gelir; bu yüzden Search `@ui-sdk/core` ve `@ui-sdk/react` paketlerine ihtiyaç duyar. Kurulum komutu onları, bileşenin yazıldığı tam sürümle ekler: UI SDK beta aşamasında ve API\'si hâlâ değişebilir.',
+        ),
+      },
+      h('Usage', 'Kullanım'),
+      {
+        type: 'code',
+        title: 'app.tsx',
+        code: `import { GlassSearch } from '@/components/liquid-glass/glass-search'
+
+<GlassSearch
+  label="Search"
+  placeholder="Search"
+  className="w-full max-w-md"
+  onAction={(item, layer) => open(layer.value, item.value)}
+  layers={[
+    {
+      value: 'apps',
+      label: 'Apps',
+      icon: <LayoutGrid />,
+      items: [
+        { value: 'notes', label: 'Notes' },
+        { value: 'maps', label: 'Maps' },
+      ],
+    },
+    {
+      value: 'people',
+      label: 'People',
+      icon: <Users />,
+      items: [{ value: 'lena', label: 'Lena Marsh', description: 'Design' }],
+    },
+  ]}
+/>`,
+      },
+      {
+        type: 'p',
+        text: t(
+          'Left empty under focus or the pointer for two seconds, the field pulls its end back and its layers come out of it as one string of droplets: small at first, growing as they spread, the nearest pinching off where it belongs, then each of the others letting go of the next. Their icons ride with them and, in order, fade up, grow from their centre and clear out of a blur as they land. Type, and the droplets melt back in one quick motion, the best match completes what you typed, and the field grows down into its results; empty it and the glass shuts over them from below, softly, on a spring with some weight. It is one body of glass from start to end, shaded for the height it has at rest, with a hairline of dark on its very edge. Its face is frosted and takes only a little of the kit\'s light; its rim keeps the light, which leans towards the pointer as it moves around the field, and its shadow is Card\'s. The glass is clear, so it needs something behind it to bend.',
+          'Odak ya da imleç altında iki saniye boş kalınca alan ucunu geri çeker ve katmanları ondan tek bir damla dizisi olarak çıkar: önce küçük, yayıldıkça büyüyen; önce en yakındaki kendi yerinde kopar, sonra diğerleri birbirinden. İkonları onlarla birlikte gider ve yerlerine vardıkça, sırayla, belirir, merkezinden büyür ve bulanıktan netleşir. Yazınca damlalar tek bir hızlı hareketle geri erir, en iyi eşleşme yazdığını tamamlar ve alan aşağı doğru sonuçlarına büyür; boşaltınca cam, ağırlığı olan bir yayla, alttan onların üstüne yumuşakça kapanır. Baştan sona tek bir cam gövdedir ve durduğu hâlin yüksekliğine göre gölgelenir; en dış kenarında çok ince koyu bir çizgi vardır. Yüzeyi buzludur ve kitin ışığından yalnızca biraz alır; kenarı ışığını korur ve imleç alanın etrafında gezdikçe ona doğru yatar; gölgesi Card\'ın gölgesidir. Cam berraktır, bu yüzden bükecek bir arka plana ihtiyaç duyar.',
+        ),
+      },
+      h('Layers', 'Katmanlar'),
+      {
+        type: 'p',
+        text: t(
+          'A layer is a kind of thing to look in. Give it `items` when you have them up front: typing ranks them (the start of the label first, then the start of a word, then anywhere, then `keywords`), without case or accents. Give it `search` when the answer takes a while: it is called with what was typed and aborted when that changes, and what it resolves with joins the list when it arrives. Layers that answered line up as chips above the results. Press a droplet or a chip and the field looks in that layer alone; it shows in the field, and Backspace in the empty field lets it go. Up to four layers bud off as droplets, as many as leave the field at least 120px to type in; any others show only as chips.',
+          'Katman, içinde aranacak bir türdür. Elindeyse `items` ver: yazdıkça sıralanır (önce etiketin başı, sonra bir kelimenin başı, sonra herhangi bir yeri, sonra `keywords`), büyük-küçük harf ve aksan ayırmadan. Cevap zaman alıyorsa `search` ver: yazılanla çağrılır, yazı değişince iptal edilir ve döndürdüğü sonuçlar geldiklerinde listeye katılır. Cevap veren katmanlar sonuçların üstünde çip olarak dizilir. Bir damlaya ya da çipe basınca alan yalnızca o katmanda arar; katman alanın içinde görünür ve boş alanda Backspace onu bırakır. En fazla dört katman damla olarak ayrılır; alana yazmak için en az 120px bırakacak kadarı. Diğerleri yalnızca çip olarak görünür.',
+        ),
+      },
+      {
+        type: 'code',
+        title: 'layers.tsx',
+        code: `const layers: GlassSearchLayer[] = [
+  // Known up front: ranked as you type.
+  { value: 'apps', label: 'Apps', icon: <LayoutGrid />, items: apps },
+  // Takes a while: joins the list when it resolves.
+  {
+    value: 'files',
+    label: 'Files',
+    icon: <Folder />,
+    search: async (query, signal) => {
+      const response = await fetch(\`/api/files?q=\${encodeURIComponent(query)}\`, { signal })
+      return response.json()
+    },
+  },
+]`,
+      },
+      h('API reference', 'API referansı'),
+      {
+        type: 'props',
+        rows: [
+          { name: 'layers', type: 'GlassSearchLayer[]', description: t('What the field looks in, in order: `{ value, label, icon, items?, search? }`.', 'Alanın içinde aradığı katmanlar, sırasıyla: `{ value, label, icon, items?, search? }`.') },
+          { name: 'layers[].items', type: '{ value: string; label: string; description?: string; icon?: ReactNode; keywords?: string[]; disabled?: boolean }[]', description: t('Results known up front. Typing ranks them.', 'Baştan bilinen sonuçlar. Yazdıkça sıralanır.') },
+          { name: 'layers[].search', type: '(query: string, signal: AbortSignal) => Promise<GlassSearchItem[]>', description: t('Results that take a while. Aborted when the text changes; what it resolves with is ranked, not filtered again.', 'Zaman alan sonuçlar. Yazı değişince iptal edilir; döndürdükleri yeniden süzülmez, yalnızca sıralanır.') },
+          { name: 'label', type: 'string', description: t('The field\'s accessible name.', 'Alanın erişilebilir adı.') },
+          { name: 'placeholder', type: 'string', description: t('Shown while the field is empty. One too long for the field flows through it without end, as a marquee does.', 'Alan boşken görünür. Alana sığmayacak kadar uzunsa, kayan yazı gibi durmadan içinden akar.') },
+          { name: 'onAction', type: '(item, layer) => unknown', description: t('Called when a result is chosen (Enter or a press). Return a promise and the result stays pending until it settles; then the field empties.', 'Bir sonuç seçildiğinde (Enter ya da basış) çağrılır. Promise döndürürsen sonuç, o tamamlanana kadar beklemede kalır; sonra alan boşalır.') },
+          { name: 'onQueryChange', type: '(query: string) => void', description: t('Called with the text as it changes.', 'Yazı değiştikçe onunla çağrılır.') },
+          { name: 'defaultLayer', type: 'string | null', default: 'null', description: t('The layer the field looks in alone at first. `null` = every layer.', 'Alanın başta tek başına aradığı katman. `null` = bütün katmanlar.') },
+          { name: 'onLayerChange', type: '(layer: string | null) => void', description: t('Called when one layer is chosen or let go.', 'Bir katman seçildiğinde ya da bırakıldığında çağrılır.') },
+          { name: 'layersAfter', type: 'number', default: '2000', description: t('How long the empty field waits, under focus or the pointer, before its layers bud off (ms).', 'Boş alanın, odak ya da imleç altında, katmanlarını salmadan önce beklediği süre (ms).') },
+          { name: 'arrive', type: 'boolean', default: 'false', description: t('Play the field\'s arrival when it mounts: it comes in a little large, out of a blur. For a field that is summoned, in a dialog or on a shortcut.', 'Alan yerleştiğinde ekrana gelişini oynatır: biraz büyük ve bulanık gelir, yerine oturur. Bir pencerede ya da kısayolla çağrılan alan için.') },
+          { name: 'empty', type: 'ReactNode', default: "'No results'", description: t('Shown when nothing matches. Write it in the page\'s language.', 'Hiçbir şey eşleşmediğinde görünür. Sayfanın dilinde yaz.') },
+          { name: 'limit', type: 'number', default: '50', description: t('The most results listed at once.', 'Aynı anda listelenen en fazla sonuç.') },
+          { name: 'material', type: "'clear' | 'tinted'", default: "'clear'", description: t('Clear glass frosts and bends what is behind; tinted takes the colour of your own `bg-*` class.', 'Berrak cam arkasındakini buzlar ve büker; renkli cam kendi `bg-*` sınıfının rengini alır.') },
+          { name: 'tint', type: 'number', default: '0.74', description: t('Clear glass: how much tint covers the backdrop (0–1).', 'Berrak cam: arka planı ne kadar ton örter (0–1).') },
+          { name: 'blur', type: 'number', default: '3.5', description: t('Clear glass: how much the backdrop is frosted, in px.', 'Berrak cam: arka planın ne kadar buzlandığı, px.') },
+          { name: 'className', type: 'string', description: t('Sizes the field; it is 20rem wide by default and always 48px tall at rest.', 'Alanı boyutlandırır; varsayılan genişlik 20rem, durduğu hâlde yükseklik hep 48px.') },
+        ],
+      },
+      h('Accessibility', 'Erişilebilirlik'),
+      {
+        type: 'list',
+        items: [
+          t('A `combobox` text field that controls a `listbox` (UI SDK\'s Command): focus stays in the field while the arrow keys move the highlight, and result counts are announced after typing pauses.', 'Bir `listbox`\'ı yöneten `combobox` metin alanı (UI SDK\'nın Command\'ı): ok tuşları vurguyu gezdirirken odak alanda kalır, yazma durduğunda sonuç sayısı duyurulur.'),
+          t('Enter runs the highlighted result. Tab or the right arrow at the end of the text takes the completion. Escape empties the field, then lets the chosen layer go; Backspace in the empty field does the same.', 'Enter vurgulu sonucu çalıştırır. Tab ya da yazının sonunda sağ ok tamamlamayı alır. Escape alanı boşaltır, sonra seçili katmanı bırakır; boş alanda Backspace de aynısını yapar.'),
+          t('Droplets and chips are buttons named by their layer\'s `label`. The droplets leave the tab order while they are melted in.', 'Damlalar ve çipler, adını katmanın `label`\'ından alan butonlardır. Damlalar geri erimişken sekme sırasından çıkar.'),
+          t('With reduced motion the droplets and the results appear at once, with no budding or growth.', 'Hareketi azalt açıksa damlalar ve sonuçlar, tomurcuklanma ya da büyüme olmadan anında görünür.'),
+          t('Without WebGL2 it is a plain frosted field with round buttons at its end.', 'WebGL2 yoksa ucunda yuvarlak butonlar olan düz, buzlu bir alandır.'),
+        ],
+      },
+    ],
+  },
 ]
 
 export const pageBySlug = (slug: string) => PAGES.find((p) => p.slug === slug)
@@ -1859,6 +1999,28 @@ export type Release = {
 export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed']
 
 export const RELEASES: Release[] = [
+  {
+    version: '2.1.0',
+    date: '2026-11-28',
+    title: t('Search: one field that looks in several layers.', 'Search: birkaç katmanda arayan tek alan.'),
+    changes: [
+      {
+        kind: 'new',
+        page: 'search',
+        text: t(
+          'Search (`GlassSearch`): a search field that looks in several layers at once. Left empty under focus or the pointer, it pulls its end back and lets its layers out as a string of droplets that grow, spread and let go of each other; typed in, they melt back, the best match completes the text and the field grows down into its results, with the layers that answered as chips. A layer can answer later (`search`), and its results join the list when they arrive. Behaviour is UI SDK\'s Command.',
+          'Search (`GlassSearch`): aynı anda birkaç katmanda arayan arama alanı. Odak ya da imleç altında boş kalınca ucunu geri çeker ve katmanlarını büyüyen, yayılan ve birbirinden kopan bir damla dizisi olarak salar; yazınca damlalar geri erir, en iyi eşleşme yazıyı tamamlar ve alan aşağı doğru sonuçlarına büyür, cevap veren katmanlar da çip olarak dizilir. Bir katman sonradan cevap verebilir (`search`); sonuçları geldiklerinde listeye katılır. Davranış UI SDK\'nın Command\'ından gelir.',
+        ),
+      },
+      {
+        kind: 'improved',
+        text: t(
+          '`GlassLayer` draws a row of droplets: with more than one `data-glass-drop` child they bud off the body\'s end as a chain, each to the place its own element has (four at most), and tells each element where its droplet is (`--glass-drop-x`, `--glass-drop-size`, `--glass-drop-out`) so its content rides with the glass. `restHeight` shades glass that grows as if it were still the height it has at rest, so its rim, bend and shadow stay the same size. `optics.outlineAlpha` (with `outlineColor` and `outlineWidth`) draws a hairline on the very edge of clear glass, outside the rim line.',
+          '`GlassLayer` bir sıra damla çizer: birden fazla `data-glass-drop` çocuğu varsa gövdenin ucundan zincir hâlinde ayrılır, her biri kendi öğesinin durduğu yere gider (en fazla dört); her öğeye damlasının nerede olduğunu da söyler (`--glass-drop-x`, `--glass-drop-size`, `--glass-drop-out`), böylece içeriği camla birlikte gider. `restHeight`, büyüyen camı durduğu hâlin yüksekliğindeymiş gibi gölgelendirir; kenarı, bükmesi ve gölgesi aynı boyda kalır. `optics.outlineAlpha` (`outlineColor` ve `outlineWidth` ile) berrak camın en dış kenarına, kenar çizgisinin dışına ince bir çizgi çizer.',
+        ),
+      },
+    ],
+  },
   {
     version: '2.0.9',
     date: '2026-11-28',

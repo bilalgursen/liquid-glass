@@ -21,6 +21,7 @@ import { Route as Char123LocaleChar125MirrorLabRouteImport } from './routes/{-$l
 import { Route as Char123LocaleChar125PopoverLabRouteImport } from './routes/{-$locale}/popover-lab'
 import { Route as Char123LocaleChar125PopupLabRouteImport } from './routes/{-$locale}/popup-lab'
 import { Route as Char123LocaleChar125PullLabRouteImport } from './routes/{-$locale}/pull-lab'
+import { Route as Char123LocaleChar125SearchLabRouteImport } from './routes/{-$locale}/search-lab'
 import { Route as Char123LocaleChar125SelectLabRouteImport } from './routes/{-$locale}/select-lab'
 import { Route as Char123LocaleChar125TuneRouteImport } from './routes/{-$locale}/tune'
 import { Route as Char123LocaleChar125DocsIndexRouteImport } from './routes/{-$locale}/docs/index'
@@ -97,6 +98,12 @@ const Char123LocaleChar125PullLabRoute =
     path: '/pull-lab',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const Char123LocaleChar125SearchLabRoute =
+  Char123LocaleChar125SearchLabRouteImport.update({
+    id: '/search-lab',
+    path: '/search-lab',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
 const Char123LocaleChar125SelectLabRoute =
   Char123LocaleChar125SelectLabRouteImport.update({
     id: '/select-lab',
@@ -134,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/popover-lab': typeof Char123LocaleChar125PopoverLabRoute
   '/{-$locale}/popup-lab': typeof Char123LocaleChar125PopupLabRoute
   '/{-$locale}/pull-lab': typeof Char123LocaleChar125PullLabRoute
+  '/{-$locale}/search-lab': typeof Char123LocaleChar125SearchLabRoute
   '/{-$locale}/select-lab': typeof Char123LocaleChar125SelectLabRoute
   '/{-$locale}/tune': typeof Char123LocaleChar125TuneRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
@@ -150,6 +158,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/popover-lab': typeof Char123LocaleChar125PopoverLabRoute
   '/{-$locale}/popup-lab': typeof Char123LocaleChar125PopupLabRoute
   '/{-$locale}/pull-lab': typeof Char123LocaleChar125PullLabRoute
+  '/{-$locale}/search-lab': typeof Char123LocaleChar125SearchLabRoute
   '/{-$locale}/select-lab': typeof Char123LocaleChar125SelectLabRoute
   '/{-$locale}/tune': typeof Char123LocaleChar125TuneRoute
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
@@ -169,6 +178,7 @@ export interface FileRoutesById {
   '/{-$locale}/popover-lab': typeof Char123LocaleChar125PopoverLabRoute
   '/{-$locale}/popup-lab': typeof Char123LocaleChar125PopupLabRoute
   '/{-$locale}/pull-lab': typeof Char123LocaleChar125PullLabRoute
+  '/{-$locale}/search-lab': typeof Char123LocaleChar125SearchLabRoute
   '/{-$locale}/select-lab': typeof Char123LocaleChar125SelectLabRoute
   '/{-$locale}/tune': typeof Char123LocaleChar125TuneRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/popover-lab'
     | '/{-$locale}/popup-lab'
     | '/{-$locale}/pull-lab'
+    | '/{-$locale}/search-lab'
     | '/{-$locale}/select-lab'
     | '/{-$locale}/tune'
     | '/{-$locale}/'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/popover-lab'
     | '/{-$locale}/popup-lab'
     | '/{-$locale}/pull-lab'
+    | '/{-$locale}/search-lab'
     | '/{-$locale}/select-lab'
     | '/{-$locale}/tune'
     | '/{-$locale}'
@@ -223,6 +235,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/popover-lab'
     | '/{-$locale}/popup-lab'
     | '/{-$locale}/pull-lab'
+    | '/{-$locale}/search-lab'
     | '/{-$locale}/select-lab'
     | '/{-$locale}/tune'
     | '/{-$locale}/'
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125PullLabRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/{-$locale}/search-lab': {
+      id: '/{-$locale}/search-lab'
+      path: '/search-lab'
+      fullPath: '/{-$locale}/search-lab'
+      preLoaderRoute: typeof Char123LocaleChar125SearchLabRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/select-lab': {
       id: '/{-$locale}/select-lab'
       path: '/select-lab'
@@ -378,6 +398,7 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125PopoverLabRoute: typeof Char123LocaleChar125PopoverLabRoute
   Char123LocaleChar125PopupLabRoute: typeof Char123LocaleChar125PopupLabRoute
   Char123LocaleChar125PullLabRoute: typeof Char123LocaleChar125PullLabRoute
+  Char123LocaleChar125SearchLabRoute: typeof Char123LocaleChar125SearchLabRoute
   Char123LocaleChar125SelectLabRoute: typeof Char123LocaleChar125SelectLabRoute
   Char123LocaleChar125TuneRoute: typeof Char123LocaleChar125TuneRoute
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
@@ -396,6 +417,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125PopoverLabRoute: Char123LocaleChar125PopoverLabRoute,
     Char123LocaleChar125PopupLabRoute: Char123LocaleChar125PopupLabRoute,
     Char123LocaleChar125PullLabRoute: Char123LocaleChar125PullLabRoute,
+    Char123LocaleChar125SearchLabRoute: Char123LocaleChar125SearchLabRoute,
     Char123LocaleChar125SelectLabRoute: Char123LocaleChar125SelectLabRoute,
     Char123LocaleChar125TuneRoute: Char123LocaleChar125TuneRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
