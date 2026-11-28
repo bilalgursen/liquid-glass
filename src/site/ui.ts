@@ -38,8 +38,8 @@ export const UI = {
       release: 'Glass components, one engine',
       subtitle: 'React components drawn in WebGL2.',
       search: 'Open-source liquid glass components for React: buttons, tabs, cards, sliders and menus drawn in WebGL2 with real refraction. Install with the shadcn CLI.',
-      primary: 'Read the docs',
-      secondary: 'GitHub',
+      slide: 'Slide to explore',
+      opening: 'Opening',
     },
     set: {
       title: 'The components.',
@@ -120,8 +120,8 @@ export const UI = {
       release: 'Cam bileşenler, tek motor',
       subtitle: 'WebGL2 ile çizilen React bileşenleri.',
       search: 'React için açık kaynak liquid glass (sıvı cam) bileşenleri: WebGL2 ile çizilen, arkasını gerçekten kıran düğmeler, sekmeler, kartlar, kaydırıcılar ve menüler. shadcn CLI ile kur.',
-      primary: 'Dokümanı oku',
-      secondary: 'GitHub',
+      slide: 'Kaydır, keşfet',
+      opening: 'Açılıyor',
     },
     set: {
       title: 'Bileşenler.',

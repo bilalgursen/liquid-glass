@@ -7,7 +7,7 @@ import type { Locale } from './i18n'
 import { DocLink } from './links'
 import { UI } from './ui'
 
-// The components as live tiles: the landing page's product shot and the docs index.
+// The components as live tiles on the docs index.
 // Each tile renders the component's hero demo (the same file its docs page shows), centred
 // on a quiet neutral stage: colour lives only inside the demos, where the glass bends it.
 
@@ -82,10 +82,10 @@ function Inspector({ locale }: { locale: Locale }) {
 }
 
 /** Press first and full width, the rest two by two; an odd one out at the end runs full width too. */
-export function ComponentGrid({ locale, variant }: { locale: Locale; variant: 'landing' | 'docs' }) {
+export function ComponentGrid({ locale }: { locale: Locale }) {
   const [first, ...rest] = CATALOG
   return (
-    <div className={`grid sm:grid-cols-2 ${variant === 'landing' ? 'gap-4 lg:gap-5' : 'gap-3'}`}>
+    <div className="grid gap-3 sm:grid-cols-2">
       <Tile page={first} locale={locale} wide inspector />
       {rest.map((p, i) => (
         <Tile key={p.slug} page={p} locale={locale} wide={rest.length % 2 === 1 && i === rest.length - 1} />
