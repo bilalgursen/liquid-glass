@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { GlassSearch, type GlassSearchLayer } from '@/components/liquid-glass/glass-search'
 
-const files = ['Launch notes.md', 'Lens study.fig', 'Navigation map.pdf', 'Pricing draft.md', 'Roadmap 2027.md', 'Sound pack.zip']
+const files = ['Friday khutbah notes.md', 'Hajj checklist.pdf', 'Nawawi forty hadith.pdf', 'Ramadan plan.md', 'Sirah reading list.md', 'Zakat sheet.xlsx']
 
 const layers: GlassSearchLayer[] = [
   {
@@ -11,12 +11,12 @@ const layers: GlassSearchLayer[] = [
     label: 'Apps',
     icon: <LayoutGrid />,
     items: [
-      { value: 'calendar', label: 'Calendar' },
-      { value: 'mail', label: 'Mail' },
+      { value: 'calendar', label: 'Calendar', keywords: ['hijri'] },
       { value: 'maps', label: 'Maps' },
-      { value: 'music', label: 'Music' },
       { value: 'notes', label: 'Notes' },
-      { value: 'photos', label: 'Photos' },
+      { value: 'prayer-times', label: 'Prayer times', keywords: ['salah', 'adhan'] },
+      { value: 'qibla', label: 'Qibla', keywords: ['compass', 'kaaba'] },
+      { value: 'quran', label: 'Quran', keywords: ['mushaf'] },
     ],
   },
   {
@@ -35,10 +35,10 @@ const layers: GlassSearchLayer[] = [
     label: 'People',
     icon: <Users />,
     items: [
-      { value: 'lena', label: 'Lena Marsh', description: 'Design' },
-      { value: 'malik', label: 'Malik Noor', description: 'Engineering' },
-      { value: 'nora', label: 'Nora Lind', description: 'Sales' },
-      { value: 'paul', label: 'Paul Meyer', description: 'Support' },
+      { value: 'bilal', label: 'Bilal ibn Rabah', description: 'The first muezzin' },
+      { value: 'muadh', label: 'Muadh ibn Jabal', description: 'Teacher of Yemen' },
+      { value: 'musab', label: 'Musab ibn Umayr', description: 'Envoy to Medina' },
+      { value: 'umar', label: 'Umar ibn al-Khattab', description: 'Al-Faruq' },
     ],
   },
   {
@@ -47,8 +47,8 @@ const layers: GlassSearchLayer[] = [
     icon: <Zap />,
     items: [
       { value: 'new-note', label: 'New note', keywords: ['create', 'write'] },
-      { value: 'mute', label: 'Mute notifications', keywords: ['silence', 'quiet'] },
-      { value: 'lock', label: 'Lock screen' },
+      { value: 'sadaqah', label: 'Give sadaqah', keywords: ['charity', 'donate'] },
+      { value: 'mute', label: 'Mute for prayer', keywords: ['silence', 'quiet'] },
       { value: 'night', label: 'Night mode', keywords: ['dark'] },
     ],
   },

@@ -1884,14 +1884,14 @@ const popup = useGlassPopup({ opening: 'morph' })
       icon: <LayoutGrid />,
       items: [
         { value: 'notes', label: 'Notes' },
-        { value: 'maps', label: 'Maps' },
+        { value: 'quran', label: 'Quran' },
       ],
     },
     {
       value: 'people',
       label: 'People',
       icon: <Users />,
-      items: [{ value: 'lena', label: 'Lena Marsh', description: 'Design' }],
+      items: [{ value: 'muadh', label: 'Muadh ibn Jabal', description: 'Teacher of Yemen' }],
     },
   ]}
 />`,
@@ -1999,6 +1999,21 @@ export type Release = {
 export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed']
 
 export const RELEASES: Release[] = [
+  {
+    version: '2.1.1',
+    date: '2026-11-28',
+    title: t('Search: an example with other things to find.', 'Search: bulunacak başka şeylerle bir örnek.'),
+    changes: [
+      {
+        kind: 'improved',
+        page: 'search',
+        text: t(
+          'The example looks in other content: the people are companions of the Prophet (Bilal ibn Rabah, Muadh ibn Jabal, Musab ibn Umayr, Umar ibn al-Khattab), the apps are Quran, Prayer times and Qibla next to Calendar, Maps and Notes, and the files and actions follow them.',
+          'Örnek başka bir içerikte arıyor: kişiler sahabeler (Bilal ibn Rabah, Muadh ibn Jabal, Musab ibn Umayr, Umar ibn al-Khattab), uygulamalar Calendar, Maps ve Notes\'un yanında Quran, Prayer times ve Qibla; dosyalar ve eylemler de onlara uyuyor.',
+        ),
+      },
+    ],
+  },
   {
     version: '2.1.0',
     date: '2026-11-28',
