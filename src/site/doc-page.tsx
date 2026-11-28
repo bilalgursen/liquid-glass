@@ -268,7 +268,7 @@ function BlockView({ block, locale }: { block: Block; locale: Locale }) {
     case 'props':
       return <PropsTable rows={block.rows} locale={locale} />
     case 'index':
-      return <ComponentGrid locale={locale} variant="docs" />
+      return <ComponentGrid locale={locale} />
   }
 }
 

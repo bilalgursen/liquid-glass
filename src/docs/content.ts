@@ -1860,6 +1860,20 @@ export const CHANGE_KINDS: ChangeKind[] = ['new', 'improved', 'fixed', 'removed'
 
 export const RELEASES: Release[] = [
   {
+    version: '2.0.9',
+    date: '2026-11-28',
+    title: t('A shorter landing page: slide the glass to open the docs.', 'Daha kısa bir ana sayfa: camı kaydır, doküman açılsın.'),
+    changes: [
+      {
+        kind: 'improved',
+        text: t(
+          'The landing page holds one glass now: a Slide to Confirm in the hero, the page\'s call to action, opens the docs. The components are a line of names under it, each one its page; the live tiles moved to the docs index.',
+          'Ana sayfada artık tek bir cam var: hero\'daki Slide to Confirm sayfanın çağrısı, kaydırınca doküman açılıyor. Bileşenler altında bir isim satırı, her biri kendi sayfasına gidiyor; canlı kutular doküman girişine taşındı.',
+        ),
+      },
+    ],
+  },
+  {
     version: '2.0.8',
     date: '2026-11-28',
     title: t('The sitemap lists the pages, and only the pages.', 'Site haritası sayfaları, yalnızca sayfaları listeliyor.'),

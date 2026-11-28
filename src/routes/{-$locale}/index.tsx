@@ -1,11 +1,12 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { useEffect, type CSSProperties } from 'react'
 
-import { Button } from '#/components/ui/button'
-import { FrameSection, GitHubMark, column } from '#/site/chrome'
+import { GlassSlideToConfirm } from '@/components/liquid-glass'
+import { CATALOG } from '@/docs/content'
+import { FrameSection, column } from '#/site/chrome'
 import { CodeBlock, InstallCommand } from '#/site/code'
-import { ComponentGrid } from '#/site/component-grid'
+import { DocLink } from '#/site/links'
 import { ENTERED_KEY, REPO_URL, SITE_ORIGIN, alternateLinks, localeFromParam, localeParam, shareMeta } from '#/site/i18n'
 import { UI } from '#/site/ui'
 
@@ -74,6 +75,14 @@ function Home() {
   const { locale } = Route.useRouteContext()
   const t = UI[locale]
   const p = { locale: localeParam(locale) }
+  const router = useRouter()
+
+  // The slide is the page's one call to action: the docs load while the track draws in, the
+  // check shows for a beat, and then the page turns.
+  const openDocs = async () => {
+    await router.preloadRoute({ to: '/{-$locale}/docs', params: p }).catch(() => {})
+    window.setTimeout(() => router.navigate({ to: '/{-$locale}/docs', params: p }), 520)
+  }
 
   // The entrance plays once per session; afterwards (and on the way back) the page is just there.
   useEffect(() => {
@@ -92,7 +101,8 @@ function Home() {
       {/* ── Hero: one promise, then the glass ── */}
       <section className="relative overflow-hidden">
         <div className={`${column} bg-background`}>
-          <div className="relative flex flex-col items-center px-4 pt-32 pb-14 text-center sm:px-5 sm:pt-36 sm:pb-16">
+          {/* The hero fills the first screen (under the band), its promise and its slide in the middle. */}
+          <div className="relative flex min-h-[max(560px,calc(100svh-var(--band,0px)))] flex-col items-center justify-center px-4 pt-28 pb-20 text-center sm:px-5 sm:pt-32 sm:pb-24">
             {/* One line from sm up, sized to the viewport; phones wrap it. */}
             <h1 className="font-display text-[46px] leading-[1.0] tracking-[-0.015em] text-balance text-foreground sm:text-[clamp(46px,7.2vw,104px)] sm:whitespace-nowrap">
               {/* Padding keeps the blur of the entrance from being clipped. */}
@@ -103,38 +113,43 @@ function Home() {
             <p className="enter mt-6 max-w-[40ch] text-lead leading-relaxed text-balance text-muted-foreground sm:text-[19px]" style={at(0.6, '12px')}>
               {t.hero.subtitle}
             </p>
-            <div className="enter mt-10 flex flex-wrap items-center justify-center gap-3" style={at(0.75, '12px')}>
-              {/* The page's one primary action; GitHub is the quiet alternative. */}
-              <Button asChild size="lg" className="group pr-4 shadow-[0_1px_2px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)] sm:pr-5">
-                <Link to="/{-$locale}/docs" params={p}>
-                  {t.hero.primary}
-                  <ArrowRight aria-hidden className="motion-safe:transition-transform motion-safe:duration-150 motion-safe:group-hover:translate-x-0.5" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={REPO_URL} target="_blank" rel="noreferrer">
-                  <GitHubMark />
-                  {t.hero.secondary}
-                </a>
-              </Button>
+            {/* The one glass on the page, straight on the page: slide it and the docs open. */}
+            <div className="enter mt-12 flex w-full justify-center" style={at(0.75, '12px')}>
+              <GlassSlideToConfirm
+                className="w-full max-w-sm"
+                size="xl"
+                pendingLabel={t.hero.opening}
+                successLabel={t.hero.opening}
+                onConfirm={openDocs}
+              >
+                {t.hero.slide}
+              </GlassSlideToConfirm>
             </div>
-          </div>
-
-          {/* ── The set: Press is the product shot, the rest follow on the same quiet stages. ── */}
-          <div className="px-3 sm:px-5">
-            <div className="wipe" style={at(0.9)}>
-              <ComponentGrid locale={locale} variant="landing" />
-            </div>
-          </div>
-
-          {/* The caption: one statement in two tones. */}
-          <div className="px-6 pt-24 pb-32 sm:pt-28 md:pb-40">
-            <p className="mx-auto max-w-[30ch] text-center font-display text-[26px] leading-[1.18] tracking-[-0.01em] text-balance sm:text-[36px]">
-              <span className="text-foreground">{t.set.title}</span> <span className="text-muted-foreground">{t.set.description}</span>
-            </p>
           </div>
         </div>
       </section>
+
+      {/* ── The set as a line of names, each one its page: the tiles are on the docs index. ── */}
+      <FrameSection inner="px-6 pt-24 pb-32 sm:pt-28 md:pb-40">
+        <p className="mx-auto max-w-[30ch] text-center font-display text-[26px] leading-[1.18] tracking-[-0.01em] text-balance sm:text-[36px]">
+          <span className="text-foreground">{t.set.title}</span> <span className="text-muted-foreground">{t.set.description}</span>
+        </p>
+        <ul className="mx-auto mt-10 flex max-w-[52rem] flex-wrap justify-center gap-x-5 gap-y-2 text-body text-muted-foreground">
+          {CATALOG.map((page) => (
+            <li key={page.slug}>
+              <DocLink page={page} locale={locale} className="transition-colors duration-150 hover:text-foreground">
+                {page.title[locale]}
+              </DocLink>
+            </li>
+          ))}
+          <li>
+            <Link to="/{-$locale}/docs" params={p} className="group inline-flex items-center gap-1 text-foreground">
+              {t.nav.allComponents}
+              <ArrowRight aria-hidden className="size-4 motion-safe:transition-transform motion-safe:duration-150 motion-safe:group-hover:translate-x-0.5" />
+            </Link>
+          </li>
+        </ul>
+      </FrameSection>
 
       {/* ── Facts: three numbers and a lot of air ── */}
       <FrameSection inner="px-6 py-28 sm:px-10 md:py-40">
