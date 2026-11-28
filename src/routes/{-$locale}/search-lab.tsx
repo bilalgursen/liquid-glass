@@ -272,12 +272,12 @@ const COPY = {
 // Bumped when the set of values changes, so stale saved ones do not override the kit's.
 const STORE = 'glass-search-tuning-21'
 
-const files = ['Launch notes.md', 'Lens study.fig', 'Navigation map.pdf', 'Pricing draft.md', 'Roadmap 2027.md', 'Sound pack.zip']
+const files = ['Friday khutbah notes.md', 'Hajj checklist.pdf', 'Nawawi forty hadith.pdf', 'Ramadan plan.md', 'Sirah reading list.md', 'Zakat sheet.xlsx']
 
 function layersOf(locale: Locale): GlassSearchLayer[] {
   const t = COPY[locale].layers
   return [
-    { value: 'apps', label: t.apps, icon: <LayoutGrid />, items: ['Calendar', 'Mail', 'Maps', 'Music', 'Notes', 'Photos'].map((label) => ({ value: label, label })) },
+    { value: 'apps', label: t.apps, icon: <LayoutGrid />, items: ['Calendar', 'Maps', 'Notes', 'Prayer times', 'Qibla', 'Quran'].map((label) => ({ value: label, label })) },
     {
       value: 'files',
       label: t.files,
@@ -288,8 +288,8 @@ function layersOf(locale: Locale): GlassSearchLayer[] {
           signal.addEventListener('abort', () => clearTimeout(id))
         }),
     },
-    { value: 'people', label: t.people, icon: <Users />, items: ['Lena Marsh', 'Malik Noor', 'Nora Lind', 'Paul Meyer'].map((label) => ({ value: label, label, description: 'Team' })) },
-    { value: 'actions', label: t.actions, icon: <Zap />, items: ['New note', 'Mute notifications', 'Lock screen', 'Night mode'].map((label) => ({ value: label, label })) },
+    { value: 'people', label: t.people, icon: <Users />, items: ['Bilal ibn Rabah', 'Muadh ibn Jabal', 'Musab ibn Umayr', 'Umar ibn al-Khattab'].map((label) => ({ value: label, label, description: 'Companion' })) },
+    { value: 'actions', label: t.actions, icon: <Zap />, items: ['New note', 'Give sadaqah', 'Mute for prayer', 'Night mode'].map((label) => ({ value: label, label })) },
   ]
 }
 
